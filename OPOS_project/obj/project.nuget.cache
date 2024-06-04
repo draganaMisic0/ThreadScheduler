@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "goOEcao01/42kdNjleX0bP9HqYtlgDmTOtyUGlrMDhglR1UBaxYXcC93pBxdRYbDxPX5ujjet9IVfFGFvii70A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\OPOS_project.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\WIN11\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
+    "C:\\Users\\WIN11\\.nuget\\packages\\system.drawing.common\\8.0.6\\system.drawing.common.8.0.6.nupkg.sha512"
+  ],
+  "logs": []
+}

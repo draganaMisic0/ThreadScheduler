@@ -1,0 +1,371 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\scheduler\\job.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\scheduler\\job.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\taskplayercontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\taskplayercontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\newwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\newwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\scheduler\\irunnablejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\scheduler\\irunnablejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\scheduler\\jobcreationelements.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\scheduler\\jobcreationelements.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\newwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\newwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\assemblyinfo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\taskplayercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\taskplayercontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\timecontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\timecontrol.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\specific jobs\\blurimagejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\specific jobs\\blurimagejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\specific jobs\\detectedgesjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\specific jobs\\detectedgesjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\specific jobs\\embossingjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\specific jobs\\embossingjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\specific jobs\\sharpenimagejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\specific jobs\\sharpenimagejob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\specific jobs\\equalizehistogramjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\specific jobs\\equalizehistogramjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\opos_project.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\opos_project.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\scheduler\\arraysumjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\scheduler\\arraysumjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\timecontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\timecontrol.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|c:\\users\\win11\\desktop\\opos_project\\opos_project\\opos_project\\scheduler\\scheduler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}|OPOS_project\\OPOS_project.csproj|solutionrelative:opos_project\\scheduler\\scheduler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "NewWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\NewWindow.xaml.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\NewWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\NewWindow.xaml.cs",
+              "RelativeToolTip": "OPOS_project\\NewWindow.xaml.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAAABwAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-29T14:45:33.889Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TaskPlayerControl.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\TaskPlayerControl.xaml.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\TaskPlayerControl.xaml.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\TaskPlayerControl.xaml.cs",
+              "RelativeToolTip": "OPOS_project\\TaskPlayerControl.xaml.cs",
+              "ViewState": "AQIAABcAAAAAAAAAAAAjwCoAAAAPAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-29T14:42:44.477Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\MainWindow.xaml.cs",
+              "RelativeToolTip": "OPOS_project\\MainWindow.xaml.cs",
+              "ViewState": "AQIAAHQAAAAAAAAAAAAjwIIAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-27T16:57:46.248Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "JobCreationElements.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Scheduler\\JobCreationElements.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\Scheduler\\JobCreationElements.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Scheduler\\JobCreationElements.cs",
+              "RelativeToolTip": "OPOS_project\\Scheduler\\JobCreationElements.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAAwBEAAAAFAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-29T15:38:48.088Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "NewWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\NewWindow.xaml",
+              "RelativeDocumentMoniker": "OPOS_project\\NewWindow.xaml",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\NewWindow.xaml",
+              "RelativeToolTip": "OPOS_project\\NewWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-29T14:33:56.999Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Job.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Scheduler\\Job.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\Scheduler\\Job.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Scheduler\\Job.cs",
+              "RelativeToolTip": "OPOS_project\\Scheduler\\Job.cs",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAnwEYAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T12:07:46.972Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "IRunnableJob.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Scheduler\\IRunnableJob.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\Scheduler\\IRunnableJob.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Scheduler\\IRunnableJob.cs",
+              "RelativeToolTip": "OPOS_project\\Scheduler\\IRunnableJob.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-29T15:29:08.619Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AssemblyInfo.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\AssemblyInfo.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\AssemblyInfo.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\AssemblyInfo.cs",
+              "RelativeToolTip": "OPOS_project\\AssemblyInfo.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-31T16:02:12.401Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\MainWindow.xaml",
+              "RelativeDocumentMoniker": "OPOS_project\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\MainWindow.xaml",
+              "RelativeToolTip": "OPOS_project\\MainWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-27T16:57:08.131Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TaskPlayerControl.xaml",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\TaskPlayerControl.xaml",
+              "RelativeDocumentMoniker": "OPOS_project\\TaskPlayerControl.xaml",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\TaskPlayerControl.xaml",
+              "RelativeToolTip": "OPOS_project\\TaskPlayerControl.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-29T14:36:51.251Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "TimeControl.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\TimeControl.xaml.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\TimeControl.xaml.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\TimeControl.xaml.cs",
+              "RelativeToolTip": "OPOS_project\\TimeControl.xaml.cs",
+              "ViewState": "AQIAALABAAAAAAAAAAAkwLEBAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-27T17:31:03.514Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BlurImageJob.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Specific jobs\\BlurImageJob.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\Specific jobs\\BlurImageJob.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Specific jobs\\BlurImageJob.cs",
+              "RelativeToolTip": "OPOS_project\\Specific jobs\\BlurImageJob.cs",
+              "ViewState": "AQIAABIAAAAAAAAAAAAYwCsAAABOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-30T14:06:47.222Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "DetectEdgesJob.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Specific jobs\\DetectEdgesJob.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\Specific jobs\\DetectEdgesJob.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Specific jobs\\DetectEdgesJob.cs",
+              "RelativeToolTip": "OPOS_project\\Specific jobs\\DetectEdgesJob.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAADcAAAAiAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-30T18:06:39.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "EmbossingJob.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Specific jobs\\EmbossingJob.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\Specific jobs\\EmbossingJob.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Specific jobs\\EmbossingJob.cs",
+              "RelativeToolTip": "OPOS_project\\Specific jobs\\EmbossingJob.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-30T18:17:08.286Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "SharpenImageJob.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Specific jobs\\SharpenImageJob.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\Specific jobs\\SharpenImageJob.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Specific jobs\\SharpenImageJob.cs",
+              "RelativeToolTip": "OPOS_project\\Specific jobs\\SharpenImageJob.cs",
+              "ViewState": "AQIAAAsAAAAAAAAAAAAcwAsAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-30T16:39:56.462Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "EqualizeHIstogramJob.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Specific jobs\\EqualizeHIstogramJob.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\Specific jobs\\EqualizeHIstogramJob.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Specific jobs\\EqualizeHIstogramJob.cs",
+              "RelativeToolTip": "OPOS_project\\Specific jobs\\EqualizeHIstogramJob.cs",
+              "ViewState": "AQIAADAAAAAAAAAAAAAYwAsAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-30T17:24:48.783Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "TimeControl.xaml",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\TimeControl.xaml",
+              "RelativeDocumentMoniker": "OPOS_project\\TimeControl.xaml",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\TimeControl.xaml",
+              "RelativeToolTip": "OPOS_project\\TimeControl.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-28T11:10:30.997Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "OPOS_project",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\OPOS_project.csproj",
+              "RelativeDocumentMoniker": "OPOS_project\\OPOS_project.csproj",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\OPOS_project.csproj",
+              "RelativeToolTip": "OPOS_project\\OPOS_project.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-05-29T17:44:06.985Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ArraySumJob.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Scheduler\\ArraySumJob.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\Scheduler\\ArraySumJob.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Scheduler\\ArraySumJob.cs",
+              "RelativeToolTip": "OPOS_project\\Scheduler\\ArraySumJob.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAgAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T15:10:18.972Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "Scheduler.cs",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Scheduler\\Scheduler.cs",
+              "RelativeDocumentMoniker": "OPOS_project\\Scheduler\\Scheduler.cs",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\Scheduler\\Scheduler.cs",
+              "RelativeToolTip": "OPOS_project\\Scheduler\\Scheduler.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABgAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-25T14:53:36.977Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\App.xaml",
+              "RelativeDocumentMoniker": "OPOS_project\\App.xaml",
+              "ToolTip": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\App.xaml",
+              "RelativeToolTip": "OPOS_project\\App.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2024-05-27T16:55:30.094Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
