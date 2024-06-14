@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,12 +19,20 @@ namespace OPOS_project
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
+    public partial class MainWindow : Window {
+
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
+
+
+
         private JobType? selectedJobType = null;
         private DateTime? selectedDate= null;
         private Image? selectedImage = null;
         public static List<JobCreationElements> listOfJobs = new List<JobCreationElements>();
+       // public static TextBox ? testTextBox { get; }
         public MainWindow()
         {
             InitializeComponent();
@@ -33,6 +42,9 @@ namespace OPOS_project
             {
                 comboBoxSelectJob.Items.Add(new ComboBoxItem { Content = element.ToString(), Tag = element });
             }
+
+            AllocConsole();
+            Console.WriteLine("Console window allocated.");
 
         }
         public static List<JobCreationElements> getListOfJobs() {
@@ -60,6 +72,7 @@ namespace OPOS_project
         }
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
+           
           
             if (datePicker != null)
             {

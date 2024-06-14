@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace OPOS_project.Scheduler
 {
@@ -17,11 +18,13 @@ namespace OPOS_project.Scheduler
     }
      public class Job
     {
+        private ManualResetEventSlim pauseEvent = new ManualResetEventSlim(false);
         private State state = State.NotStarted;
         public string Name { get; set; } = "Job";
 
         private readonly object stateLock = new();
         private readonly JobCreationElements myJobElements;
+        
         public int Priority { get; set; } = 1;
         public State State
         {
@@ -33,6 +36,7 @@ namespace OPOS_project.Scheduler
             this.myJobElements = myJobElements;
             this.Priority = priority;
         }
+      
         public void Start() {
 
             lock (stateLock)
@@ -42,17 +46,14 @@ namespace OPOS_project.Scheduler
                 {
                     case State.NotStarted:
                         state = State.Running;
+
                         break;
                     case State.Running:
                         throw new InvalidOperationException("Job cannot be started in the running state.");
-                    /*case State.RunningWithPauseRequest:
-                        throw new InvalidOperationException("Job cannot be started in the running with pause request state.");*/
+                    
                     case State.Paused:
                         throw new InvalidOperationException("Job cannot be started in the paused state.");
-                    /*case JobState.WaitingToResume:
-                        state = JobState.Running;
-                        Monitor.Pulse(_lock);
-                        break;*/
+                   
                     case State.Stopped:
                         throw new InvalidOperationException("Job cannot be started in the stopped state.");
                     case State.Finished:
@@ -61,45 +62,64 @@ namespace OPOS_project.Scheduler
             }
             Task.Run(async () =>
             {
-                Console.WriteLine("neki posao se izvrsava");
 
+
+                Console.WriteLine("ispisivanje stanja unutar taska " + state.ToString());
+                while (state == State.Paused)
+                {
+                    pauseEvent.Wait();
+
+                }
+
+                Console.WriteLine("izlazi iz if");
+
+
+                if (state == State.Stopped)
+                {
+                    Console.WriteLine("stopped ");
+                    return;
+                }
+                Console.WriteLine("Iteracija: " + i);
+                Thread.Sleep(1000);
+
+
+            
                 lock (stateLock)
                 {
                     State = State.Finished;
                 }
             });
-            ss
+           
         }
-        internal void Pause()
-        {
+        internal void Pause(){
+
+
+            Console.WriteLine(State.ToString());
             lock (stateLock)
             {
                 switch (state)
                 {
                     case State.NotStarted:
-                        // TODO Handle
+                        throw new InvalidOperationException("Job cannot be paused before it started");
+                     
+                    case State.Running:
+                        state = State.Paused;
+                        pauseEvent.Set();
                         break;
-                    /*case State.Running:
-                        state = State.RunningWithPauseRequest;
-                        break;
-                    case State.RunningWithPauseRequest:
-                        break;
-                    */
+                   
                     case State.Paused:
                         break;
-                    /*case State.WaitingToResume:
-                        // TODO Handle
-                        break;
-                    */
+                  
                     case State.Stopped:
                         throw new InvalidOperationException("Job cannot be paused after being stopped.");
                     case State.Finished:
                         throw new InvalidOperationException("Job cannot be paused after finishing.");
                 }
             }
+            Console.WriteLine("Posao je pauziran");
         }
 
-        internal void RequestResume()
+        internal void Resume()
         {
             lock (stateLock)
             {
@@ -109,18 +129,19 @@ namespace OPOS_project.Scheduler
                         throw new InvalidOperationException("Job cannot be resumed before starting.");
                     case State.Running:
                         break;
-                    /*case State.RunningWithPauseRequest:
+                   
+                    case State.Paused:
+
                         state = State.Running;
+                       
+
+                        pauseEvent.Reset();
+                        Console.WriteLine(this.state);
+                        Console.WriteLine("pulsirano");
                         break;
-                    */
-                    /*case State.Paused:
-                        state = State.WaitingToResume;
-                        OnResumeRequested(this);
-                        break;
-                    */
-                    /*case State.WaitingToResume:
-                        break;
-                    */
+                       
+                      
+                  
                     case State.Stopped:
                         throw new InvalidOperationException("Job cannot be resumed after being stopped.");
                     case State.Finished:
@@ -128,7 +149,7 @@ namespace OPOS_project.Scheduler
                 }
             }
         }
-
+        
         internal void Stop()
         {
             lock (stateLock)
@@ -141,13 +162,7 @@ namespace OPOS_project.Scheduler
                     case State.Running:
                         state = State.Stopped;
                         break;
-                   
-                   /* case JobState.RunningWithPauseRequest:
-                        state = JobState.RunningWithStopRequest;
-                        break;
-                    case JobState.RunningWithStopRequest:
-                        break;
-                   */
+                 
                     case State.Paused:
                         state = State.Stopped;
                         break;

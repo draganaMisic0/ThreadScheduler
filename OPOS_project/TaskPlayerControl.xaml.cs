@@ -31,8 +31,19 @@ namespace OPOS_project
         {
             if (sender is Button button && this.Tag is JobCreationElements jobElements)
             {
-                myJob = new Job(jobElements, 1);
-                myJob.Start();
+                
+                if (myJob == null)
+                {
+                    myJob = new Job(jobElements, 1);
+                    playButton.Content = "Resume";
+                    myJob.Start();
+                }
+
+                else if (myJob.State==State.Paused)
+                {
+                    myJob.Resume();
+                    
+                }
             }
         }
 

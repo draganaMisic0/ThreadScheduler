@@ -45,7 +45,7 @@
         </local:TimeControl>
         <Button x:Name="uploadButton" Content="Upload Image" Click="UploadButton_Click" RenderTransformOrigin="-1.798,5.866" Margin="368,128,0,425" HorizontalAlignment="Left" Width="77"/>
         <Label x:Name="jobsAddedTitle" Grid.Column="1" Content="Added jobs" HorizontalAlignment="Left" Margin="18,48,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
-        <TextBox x:Name="testTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="96,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Height="131"/>
+        <TextBox  x:Name="testTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="96,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Height="131"/>
         <Button x:Name="testButton" Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="120,466,0,0" VerticalAlignment="Top" Height="50" Width="61" Click="testButton_Click"/>
         <Button x:Name="startJobsButton" Grid.Column="1" Content="Start jobs" HorizontalAlignment="Left" Margin="266,466,0,0" VerticalAlignment="Top" Height="50" Width="87" Click="startJobsButton_Click"/>
         <Label x:Name="imagePath" Content="" HorizontalAlignment="Left" Margin="52,185,0,0" VerticalAlignment="Top" Width="362" Height="36" FontSize="16"/>

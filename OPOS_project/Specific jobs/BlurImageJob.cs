@@ -7,14 +7,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using OPOS_project;
+using System.Transactions;
 namespace OPOS_project.Specific_jobs
 {
-    internal class BlurImageJob 
+    internal class BlurImageJob : Job
     {
         public string Path { get; init; } = "Blur";
         private Image image = null;
-        public BlurImageJob(string path)
+        public BlurImageJob(string path, JobCreationElements myJobElements, int priority) : base(myJobElements, priority)
         {
+            
             Path = path;
         }
         public void isJobInterrupter() {
@@ -43,6 +45,11 @@ namespace OPOS_project.Specific_jobs
                     {
                         for (int y = yy; (y < yy + blurSize && y < blurred.Height); y++)
                         {
+                            while (state == State.Paused)
+                            {
+                                pauseEvent.Wait();
+
+                            }
                             Color pixel = blurred.GetPixel(x, y);
 
                             avgR += pixel.R;
