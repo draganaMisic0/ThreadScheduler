@@ -113,7 +113,7 @@ namespace OPOS_project
                         BitmapImage bitmapImage = new BitmapImage(new Uri(selectedFileName));
                         selectedImage = new Image();
                         selectedImage.Source = bitmapImage;
-                    testImage.Source = selectedImage.Source;
+                        testImage.Source = selectedImage.Source;
 
 
                     // Perform your upload action here, such as saving the file or sending it to a server

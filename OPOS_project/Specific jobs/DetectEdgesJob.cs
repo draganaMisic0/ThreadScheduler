@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OPOS_project.Scheduler;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,9 +8,12 @@ using System.Threading.Tasks;
 
 namespace OPOS_project.Specific_jobs
 {
-    internal class DetectEdgesJob
+    internal class DetectEdgesJob: Job, IRunnableJob
     {
+        public DetectEdgesJob(JobCreationElements myJobElements, int priority) : base (myJobElements, priority)
+        {
 
+        }
         public static Bitmap Run(Bitmap image)
         {
             // Convert image to grayscale

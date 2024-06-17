@@ -29,14 +29,14 @@ namespace OPOS_project
     
         private void playButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && this.Tag is JobCreationElements jobElements)
-            {
+            if (sender is Button button && this.Tag is Job job)
+            {                                       //ovdje tag treba da bude tipa Job
                 
                 if (myJob == null)
-                {
+                {   //ovdje ne kreiram job jer je kreiran u new window konstruktoru 
                     myJob = new Job(jobElements, 1);
                     playButton.Content = "Resume";
-                    myJob.Start();
+                    myJob.Start(myJob.Run);
                 }
 
                 else if (myJob.State==State.Paused)
@@ -49,7 +49,7 @@ namespace OPOS_project
 
         private void pauseButtton_Click(object sender, object e)
         {
-            if (sender is Button button && this.Tag is JobCreationElements jobElements)
+            if (sender is Button button && this.Tag is Job job)
             {
                
                 myJob.Pause();

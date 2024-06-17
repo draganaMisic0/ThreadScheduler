@@ -13,25 +13,29 @@ namespace OPOS_project.Specific_jobs
     internal class BlurImageJob : Job
     {
         public string Path { get; init; } = "Blur";
-        private Image image = null;
-        public BlurImageJob(string path, JobCreationElements myJobElements, int priority) : base(myJobElements, priority)
+
+       // BitmapImage image=new BitmapImage();
+     
+        public BlurImageJob(JobCreationElements elements, int priority) : 
+            base(elements, priority)
         {
-            
-            Path = path;
+           // this.image = (image == null ? new BitmapImage() : image);
         }
-        public void isJobInterrupter() {
-            Console.WriteLine("metod koji treba napisati");
-        }
-        public Bitmap Run(Bitmap image, int blurSize)
+       
+        public void Run(IStatefulJob isj)
         {
-            
-            Bitmap blurred = new Bitmap(image.Width, image.Height);
+            int blurSize = 5;
+           
+            Bitmap blurred = new Bitmap(this.Image.PixelWidth, this.Image.PixelHeight);
+               
+            /*
 
             // Make an exact copy of the bitmap provided
             Graphics graphics = Graphics.FromImage(blurred);
-            graphics.DrawImage(image, new Rectangle(0, 0, image.Width, image.Height), new Rectangle(0, 0, image.Width, image.Height), GraphicsUnit.Pixel);
+            graphics.DrawImage(blurred, new Rectangle(0, 0, this.Image.PixelWidth, this.Image.PixelHeight), 
+                new Rectangle(0, 0, this.Image.PixelWidth, this.Image.PixelHeight), GraphicsUnit.Pixel);
             
-
+            */
             // Look at every pixel in the blur rectangle
             for (int xx = 0; xx < blurred.Width; xx++)
             {
@@ -45,11 +49,7 @@ namespace OPOS_project.Specific_jobs
                     {
                         for (int y = yy; (y < yy + blurSize && y < blurred.Height); y++)
                         {
-                            while (state == State.Paused)
-                            {
-                                pauseEvent.Wait();
-
-                            }
+                            //checkState();
                             Color pixel = blurred.GetPixel(x, y);
 
                             avgR += pixel.R;
@@ -75,7 +75,7 @@ namespace OPOS_project.Specific_jobs
                 }
             }
 
-            return blurred;
+            //return blurred;
             
 
         }

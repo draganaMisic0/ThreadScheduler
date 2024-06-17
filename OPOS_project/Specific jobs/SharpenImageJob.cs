@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OPOS_project.Scheduler;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OPOS_project.Specific_jobs
 {
-    internal class SharpenImageJob
+    internal class SharpenImageJob : Job
     {
         public SharpenImageJob() { }    
         public static Bitmap Run(Bitmap image)

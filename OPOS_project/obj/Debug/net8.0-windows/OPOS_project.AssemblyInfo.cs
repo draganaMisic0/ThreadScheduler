@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OPOS_project")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+775484db8d62afcae9b36d6b1437b641aea91967")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b3afcc24b9f4f747ab59f836f9d093bb2873c59e")]
 [assembly: System.Reflection.AssemblyProductAttribute("OPOS_project")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OPOS_project")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

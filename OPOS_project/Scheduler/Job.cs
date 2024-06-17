@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace OPOS_project.Scheduler
         Stopped,
         Finished
     }
-     public class Job
+     public class Job: IStatefulJob, IRunnableJob
     {
         private ManualResetEventSlim pauseEvent = new ManualResetEventSlim(false);
         private State state = State.NotStarted;
@@ -35,9 +36,10 @@ namespace OPOS_project.Scheduler
         {
             this.myJobElements = myJobElements;
             this.Priority = priority;
+            
         }
-      
-        public void Start() {
+
+        public void Start(Action methodToRun) {
 
             lock (stateLock)
             {
@@ -60,36 +62,39 @@ namespace OPOS_project.Scheduler
                         throw new InvalidOperationException("Job cannot be started in the finished state.");
                 }
             }
-            Task.Run(async () =>
-            {
-
-
-                Console.WriteLine("ispisivanje stanja unutar taska " + state.ToString());
-                while (state == State.Paused)
-                {
-                    pauseEvent.Wait();
-
-                }
-
-                Console.WriteLine("izlazi iz if");
-
-
-                if (state == State.Stopped)
-                {
-                    Console.WriteLine("stopped ");
-                    return;
-                }
-                Console.WriteLine("Iteracija: " + i);
-                Thread.Sleep(1000);
-
-
             
-                lock (stateLock)
-                {
-                    State = State.Finished;
-                }
-            });
-           
+            Task.Run(methodToRun);
+            /*  Task.Run(async () =>
+              {
+
+
+                  Console.WriteLine("ispisivanje stanja unutar taska " + state.ToString());
+                  while (state == State.Paused)
+                  {
+                      pauseEvent.Wait();
+
+                  }
+
+                  Console.WriteLine("izlazi iz if");
+
+
+                  if (state == State.Stopped)
+                  {
+                      Console.WriteLine("stopped ");
+                      return;
+                  }
+                  Console.WriteLine("Iteracija: " + i);
+                  Thread.Sleep(1000);
+
+
+
+                  lock (stateLock)
+                  {
+                      State = State.Finished;
+                  }
+              });
+            */
+
         }
         internal void Pause(){
 
@@ -202,10 +207,27 @@ namespace OPOS_project.Scheduler
                 }
             }
         }
+        public void checkState()
+        {
+            lock(stateLock)
+            {
+                switch (state)
+                {
+                    case State.NotStarted:
+                        throw new InvalidOperationException("Cannot check the state before starting the job");
+                    case State.Running:
+                        break;
+                    case State.Paused:
+                        pauseEvent.Wait();
+                        break;
+                    case State.Stopped:
+                        throw new InvalidOperationException("Cannot check the state after stopping the job");
+                    case State.Finished:
+                        throw new InvalidOperationException("Cannot check the state after finishing the job");
+                }
+            }
+        }
 
-
-
-
-
+        abstract public void Run();
     }
 }
