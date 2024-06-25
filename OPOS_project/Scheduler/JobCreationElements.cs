@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media.Imaging;
 
 namespace OPOS_project.Scheduler
 {
@@ -14,7 +16,8 @@ namespace OPOS_project.Scheduler
         Blur,
         Sharpen,
         DetectEdges,
-        EqualizeHistogram
+        Embossing,
+       
     }
     public class JobCreationElements
     {
@@ -22,16 +25,23 @@ namespace OPOS_project.Scheduler
         public string Name { get; private set; }
         public JobType? JobType { get; private set; }
         public DateTime? StartDateAndTime { get; private set; }
-        public Image? Image {  get; private set; }
-        
 
-        public JobCreationElements(string Name, JobType? jobType, DateTime? startDateAndTime, Image? image)
+        public DateTime? Deadline { get; private set; }
+        public int? TotalExecutionTime { get; private set; }
+        public Bitmap? Image {  get; private set; }
+       
+        
+        public JobCreationElements(string Name, JobType? jobType, Bitmap? image, 
+            DateTime? startDateAndTime=null, DateTime? Deadline = null, int? TotalExecutionTime=null) 
         {
             this.Name = Name;
             this.JobType = jobType;
-            this.StartDateAndTime = startDateAndTime;
             this.Image = image;
-        }
-        
+            this.StartDateAndTime = startDateAndTime;
+            this.Deadline = Deadline;   
+            this.TotalExecutionTime = TotalExecutionTime;
+
+        }    
+      
     }
 }

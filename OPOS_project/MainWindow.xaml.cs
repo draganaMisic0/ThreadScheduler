@@ -2,31 +2,47 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+
 using System.Windows.Shapes;
+using System.Drawing;
+using System.Windows.Controls;
+using System.Windows.Media.Imaging;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace OPOS_project
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
-    {
+    public partial class MainWindow : Window {
+
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        static extern bool AllocConsole();
+
+
+
         private JobType? selectedJobType = null;
-        private DateTime? selectedDate= null;
-        private Image? selectedImage = null;
+        private DateTime? selectedStartDate= null;
+        private DateTime? selectedEndDate = null;
+        private System.Windows.Controls.Image selectedImage = null;
+        private Bitmap? selectedBitmap = null;
+        private int? selectedTotalExecutionTime = null;
         public static List<JobCreationElements> listOfJobs = new List<JobCreationElements>();
+       // public static TextBox ? testTextBox { get; }
         public MainWindow()
         {
             InitializeComponent();
+            this.ResizeMode = ResizeMode.CanMinimize;
             comboBoxSelectJob.Items.Clear();
             JobType[] elements = (JobType[])Enum.GetValues(typeof(JobType));
             foreach (JobType element in elements)
@@ -34,6 +50,13 @@ namespace OPOS_project
                 comboBoxSelectJob.Items.Add(new ComboBoxItem { Content = element.ToString(), Tag = element });
             }
 
+            AllocConsole();
+            Console.WriteLine("Console window allocated.");
+
+        }
+        private void timeControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            // Your event handler logic here
         }
         public static List<JobCreationElements> getListOfJobs() {
             
@@ -58,21 +81,8 @@ namespace OPOS_project
                 selectedJobType = (JobType)(((ComboBoxItem)comboBoxSelectJob.SelectedItem).Tag) ;
             testTextBox.AppendText(selectedJobType.ToString());
         }
-        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-          
-            if (datePicker != null)
-            {
-                selectedDate = datePicker.SelectedDate;
-                testTextBox.AppendText($"Selected Date: {selectedDate?.ToString("d")}");
-            }
-        }
+      
         private void Title_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void timeControl_Loaded(object sender, RoutedEventArgs e)
         {
 
         }
@@ -97,11 +107,14 @@ namespace OPOS_project
                         // Get the selected file name and display in a TextBox
                         string selectedFileName = openFileDialog.FileName;
                         imagePath.Content=selectedFileName;
+                        selectedBitmap=new Bitmap(selectedFileName);
                         BitmapImage bitmapImage = new BitmapImage(new Uri(selectedFileName));
-                        selectedImage = new Image();
-                        selectedImage.Source = bitmapImage;
+                    selectedImage = new System.Windows.Controls.Image
+                    {
+                        Source = bitmapImage
+                    };
                     testImage.Source = selectedImage.Source;
-
+                    selectedBitmap.Save("C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\file\\image.png", ImageFormat.Png);
 
                     // Perform your upload action here, such as saving the file or sending it to a server
                     // For example:
@@ -118,11 +131,7 @@ namespace OPOS_project
 
         }
 
-        private void testButton_Click(object sender, RoutedEventArgs e)
-        {
-            testTextBox.AppendText(timeControl.printSelectedTimeString());
-        }
-
+     
         private void startJobsButton_Click(object sender, RoutedEventArgs e)
         {
             NewWindow newWindow = new NewWindow();
@@ -132,22 +141,141 @@ namespace OPOS_project
         private DateTime buildDateAndTime(DateTime selectedDate, DateTime selectedTime)
         {
 
-            DateTime startDateAndTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, selectedTime.Hour, selectedTime.Minute, selectedTime.Second);
-            return startDateAndTime;
+            DateTime newDateAndTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, selectedTime.Hour, selectedTime.Minute, selectedTime.Second);
+            return newDateAndTime;
 
+        }
+        private Boolean CheckDateAndTimeInputs()
+        {
+            
+            if (selectedStartDate != null && startTimePicker.DateTimeValue != null)
+            { 
+                selectedStartDate = buildDateAndTime((DateTime)selectedStartDate, (DateTime)startTimePicker.DateTimeValue);
+            }
+            else
+            {
+                printMessageLabel.Content = "Job start date or start time are not selected";
+                return false;
+
+            }
+            if (selectedEndDate != null && endTimePicker.DateTimeValue != null)
+            {
+                selectedEndDate = buildDateAndTime((DateTime)selectedEndDate, (DateTime)endTimePicker.DateTimeValue);
+            }
+            else
+            {
+                printMessageLabel.Content = "Job end date or end time are not selected";
+                return false;
+            }
+            if ((DateTime.Now.CompareTo(selectedStartDate) > 0 || DateTime.Now.CompareTo(selectedEndDate) > 0))
+            {
+                printMessageLabel.Content = "Job date and time is earlier than current date and time";
+                return false;
+
+            }
+            if (selectedEndDate < selectedStartDate)
+            {
+                printMessageLabel.Content = "End date and time can't be earlier than start date and time";
+                return false;
+            }
+            if (totalExecutionTimePicker.DateTimeValue != null)
+            {
+                selectedTotalExecutionTime = (int)((DateTime)totalExecutionTimePicker.DateTimeValue).TimeOfDay.TotalSeconds;
+                printMessageLabel.Content = selectedTotalExecutionTime.ToString();                  
+            }
+            else
+            {
+                printMessageLabel.Content = "Job execution time is not selected";
+                return false;
+            }
+            int maxTimeSpan = 0;
+            maxTimeSpan=selectedEndDate.Value.Second - selectedStartDate.Value.Second;
+            if (maxTimeSpan < selectedTotalExecutionTime)
+            {
+                printMessageLabel.Content = "Selected execution time is too long";
+            }
+            return true;
+        }
+        public void clearEnteredElements()
+        {
+            comboBoxSelectJob.SelectedIndex = -1;
+            imagePath.Content = "";
+            startDatePicker.SelectedDate = null;
+            endDatePicker.SelectedDate = null;
+            startTimePicker.ClearValues();
+            endTimePicker.ClearValues();
+            isTimedJob.IsChecked = false;
         }
         private void addJobButton_Click(object sender, RoutedEventArgs e)
         {
-            if (selectedDate != null && timeControl.DateTimeValue != null)
-            { selectedDate = buildDateAndTime((DateTime)selectedDate, (DateTime)timeControl.DateTimeValue); }
+            
+            if (isTimedJob.IsChecked == true)
+            {
+                if (CheckDateAndTimeInputs())
+                {
+                    if (selectedJobType != null && selectedImage != null)
+
+                        listOfJobs.Add(new JobCreationElements($"{selectedJobType.ToString()}_{listOfJobs.Count}",
+                        selectedJobType, selectedBitmap, selectedStartDate, selectedEndDate, selectedTotalExecutionTime));
+                    printMessageLabel.Content = "Job sucessfully added";
+                    clearEnteredElements();
+
+                }
+                else return;
+            }
             else
             {
-                return;
+                if (selectedJobType == null)
+                {
+                    printMessageLabel.Content = "You need to select a job type";
+                }
+                else if(selectedImage==null)
+                {
+                    printMessageLabel.Content = "You need to select an image";
+                }
+                else
+                {
+                    listOfJobs.Add(new JobCreationElements($"{selectedJobType.ToString()}_{listOfJobs.Count}",
+                        selectedJobType, selectedBitmap));
+                    printMessageLabel.Content = "Job sucessfully added";
+                    comboBoxSelectJob.SelectedIndex = -1;
+                    imagePath.Content = "";
+
+                }
+                
             }
 
-            if(selectedJobType!=null && selectedDate!=null && selectedImage!=null)
-                 listOfJobs.Add(new JobCreationElements($"{selectedJobType.ToString()}_{listOfJobs.Count}",selectedJobType, selectedDate, selectedImage));
+        }
 
+        
+
+        private void StartDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (startDatePicker != null)
+            {
+                selectedStartDate = startDatePicker.SelectedDate;
+                testTextBox.AppendText($"Selected Date: {selectedStartDate?.ToString("d")}");
+            }
+        }
+
+        private void EndDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (endDatePicker != null)
+            {
+                selectedEndDate = endDatePicker.SelectedDate;
+                testTextBox.AppendText($"Selected Date: {selectedEndDate?.ToString("d")}");
+            }
+        }
+
+        private void checkBoxIsTimedJob_Checked(object sender, RoutedEventArgs e)
+        {
+            blurRectangle.Visibility = Visibility.Collapsed;
+        }
+
+        private void CheckBoxIsTimedJob_Unchecked(object sender, RoutedEventArgs e)
+        {
+            blurRectangle.Visibility = Visibility.Visible;
         }
     }
 }

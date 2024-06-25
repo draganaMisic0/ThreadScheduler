@@ -1,9 +1,11 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace OPOS_project.Scheduler
 {
@@ -15,24 +17,39 @@ namespace OPOS_project.Scheduler
         Stopped,
         Finished
     }
-     public class Job
+     abstract public class Job: IStatefulJob, IRunnableJob
     {
+        public readonly static String RESULT_FILE_PATH = @"../../../Results";
+
+        private ManualResetEventSlim pauseEvent = new ManualResetEventSlim(false);
         private State state = State.NotStarted;
-        public string Name { get; set; } = "Job";
+        public int Progress { get; protected set; }
+        //public string Name { get; set; } = "Job";
 
         private readonly object stateLock = new();
-        private readonly JobCreationElements myJobElements;
+        public JobCreationElements myJobElements { get; private set; }
+        public Boolean IsTimedJob { 
+            get { return myJobElements.StartDateAndTime != null || myJobElements.Deadline != null 
+                    || myJobElements.TotalExecutionTime!=null; }
+            } 
+        
         public int Priority { get; set; } = 1;
         public State State
         {
             get { return state; }
             set { state = value; }
         }
+        internal Action OnPaused { get; set; } = () => { };
+        internal Action OnStopped { get; set; } = () => { };
+        internal Action OnFinished { get; set; } = () => { };
+        internal Action<Job> OnResumeRequested { get; set; } = (Job job) => { };
         public Job(JobCreationElements myJobElements, int priority)
         {
             this.myJobElements = myJobElements;
             this.Priority = priority;
+            
         }
+
         public void Start() {
 
             lock (stateLock)
@@ -42,64 +59,57 @@ namespace OPOS_project.Scheduler
                 {
                     case State.NotStarted:
                         state = State.Running;
+                        OnResumeRequested(this);
+
                         break;
                     case State.Running:
                         throw new InvalidOperationException("Job cannot be started in the running state.");
-                    /*case State.RunningWithPauseRequest:
-                        throw new InvalidOperationException("Job cannot be started in the running with pause request state.");*/
+                    
                     case State.Paused:
                         throw new InvalidOperationException("Job cannot be started in the paused state.");
-                    /*case JobState.WaitingToResume:
-                        state = JobState.Running;
-                        Monitor.Pulse(_lock);
-                        break;*/
+                   
                     case State.Stopped:
                         throw new InvalidOperationException("Job cannot be started in the stopped state.");
                     case State.Finished:
                         throw new InvalidOperationException("Job cannot be started in the finished state.");
                 }
             }
-            Task.Run(async () =>
-            {
-                Console.WriteLine("neki posao se izvrsava");
 
-                lock (stateLock)
-                {
-                    State = State.Finished;
-                }
-            });
-            ss
+
+            Action methodToRun = RunThisJob;
+            Task.Run(methodToRun);
+           
+
         }
-        internal void Pause()
-        {
+        internal void Pause(){
+
+
+            Console.WriteLine(State.ToString());
             lock (stateLock)
             {
                 switch (state)
                 {
                     case State.NotStarted:
-                        // TODO Handle
+                        throw new InvalidOperationException("Job cannot be paused before it started");
+                     
+                    case State.Running:
+                        state = State.Paused;
+                        OnPaused();
                         break;
-                    /*case State.Running:
-                        state = State.RunningWithPauseRequest;
-                        break;
-                    case State.RunningWithPauseRequest:
-                        break;
-                    */
+                   
                     case State.Paused:
                         break;
-                    /*case State.WaitingToResume:
-                        // TODO Handle
-                        break;
-                    */
+                  
                     case State.Stopped:
                         throw new InvalidOperationException("Job cannot be paused after being stopped.");
                     case State.Finished:
                         throw new InvalidOperationException("Job cannot be paused after finishing.");
                 }
             }
+            Console.WriteLine("Posao je pauziran");
         }
 
-        internal void RequestResume()
+        internal void Resume()
         {
             lock (stateLock)
             {
@@ -109,18 +119,20 @@ namespace OPOS_project.Scheduler
                         throw new InvalidOperationException("Job cannot be resumed before starting.");
                     case State.Running:
                         break;
-                    /*case State.RunningWithPauseRequest:
+                   
+                    case State.Paused:
+
+                        
                         state = State.Running;
-                        break;
-                    */
-                    /*case State.Paused:
-                        state = State.WaitingToResume;
                         OnResumeRequested(this);
+                        pauseEvent.Set();
+                       
+                        Console.WriteLine(this.state);
+                        Console.WriteLine("pulsirano");
                         break;
-                    */
-                    /*case State.WaitingToResume:
-                        break;
-                    */
+                       
+                      
+                  
                     case State.Stopped:
                         throw new InvalidOperationException("Job cannot be resumed after being stopped.");
                     case State.Finished:
@@ -128,7 +140,7 @@ namespace OPOS_project.Scheduler
                 }
             }
         }
-
+        
         internal void Stop()
         {
             lock (stateLock)
@@ -137,19 +149,16 @@ namespace OPOS_project.Scheduler
                 {
                     case State.NotStarted:
                         state = State.Stopped;
+                        OnStopped();
                         break;
                     case State.Running:
                         state = State.Stopped;
+                        OnStopped();
                         break;
-                   
-                   /* case JobState.RunningWithPauseRequest:
-                        state = JobState.RunningWithStopRequest;
-                        break;
-                    case JobState.RunningWithStopRequest:
-                        break;
-                   */
+                 
                     case State.Paused:
                         state = State.Stopped;
+                        OnStopped();
                         break;
                     
                     case State.Stopped:
@@ -160,7 +169,7 @@ namespace OPOS_project.Scheduler
             }
         }
 
-        private void Finish()
+        internal void Finish()
         {
             lock (stateLock)
             {
@@ -169,6 +178,9 @@ namespace OPOS_project.Scheduler
                     case State.NotStarted:
                         throw new InvalidOperationException("Job cannot finish before starting.");
                     case State.Running:
+                        this.state = State.Finished;
+                        OnFinished();
+                        break;
                     //case JobState.RunningWithPauseRequest:
                    /* case JobState.RunningWithStopRequest:
                         state = JobState.Finished;
@@ -181,16 +193,38 @@ namespace OPOS_project.Scheduler
                         throw new InvalidOperationException("Job cannot finish while in waiting state.");
                     */
                     case State.Stopped:
-                        throw new InvalidOperationException("Job cannot finish after being stopped.");
+                        break;
                     case State.Finished:
                         return;
                 }
             }
         }
+        public void checkState()
+        {
+            
+                switch (state)
+                {
+                    case State.NotStarted:
+                        throw new InvalidOperationException("Cannot check the state before starting the job");
+                    case State.Running:
+                        break;
+                    case State.Paused:
+                        OnPaused();
+                        while(state == State.Paused)
+                        {
+                            pauseEvent.Wait();
+                        }
+                        break;
+                    case State.Stopped:
+                        state = State.Stopped;
+                        OnStopped();
+                        break;
+                    case State.Finished:
+                        throw new InvalidOperationException("Cannot check the state after finishing the job");
+                }
+            
+        }
 
-
-
-
-
+        abstract public void RunThisJob();
     }
 }
