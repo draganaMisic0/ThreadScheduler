@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -16,7 +17,7 @@ namespace OPOS_project.Scheduler
         Sharpen,
         DetectEdges,
         Embossing,
-        EqualizeHistogram
+       
     }
     public class JobCreationElements
     {
@@ -27,9 +28,10 @@ namespace OPOS_project.Scheduler
 
         public DateTime? Deadline { get; private set; }
         public int? TotalExecutionTime { get; private set; }
-        public BitmapImage? Image {  get; private set; }
+        public Bitmap? Image {  get; private set; }
+       
         
-        public JobCreationElements(string Name, JobType? jobType, BitmapImage? image, 
+        public JobCreationElements(string Name, JobType? jobType, Bitmap? image, 
             DateTime? startDateAndTime=null, DateTime? Deadline = null, int? TotalExecutionTime=null) 
         {
             this.Name = Name;

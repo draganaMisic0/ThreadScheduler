@@ -2,20 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace OPOS_project.Specific_jobs
 {
-    internal class EmbossingJob : Job
+    internal class EmbossingJob:Job
     {
         public EmbossingJob(JobCreationElements elements, int priority) : base(elements, priority) { }
-
-        public static Bitmap Run(Bitmap image)
+       /* public override void RunThisJob()
         {
+            throw new NotImplementedException();
+        }*/
+
+        public override void RunThisJob ()
+        {
+            int totalSteps = myJobElements.Image.Width * myJobElements.Image.Height * 2;
+            int processedSteps = 0;
             // Convert image to grayscale
-            Bitmap grayscaleImage = ConvertToGrayscale(image);
+            Bitmap grayscaleImage = ConvertToGrayscale(myJobElements.Image, ref processedSteps, totalSteps);
 
             // Define emboss kernel
             int[,] embossKernel = {
@@ -25,12 +32,14 @@ namespace OPOS_project.Specific_jobs
         };
 
             // Apply embossing convolution
-            Bitmap embossedImage = ApplyConvolution(grayscaleImage, embossKernel);
+            Bitmap embossedImage = ApplyConvolution(grayscaleImage, embossKernel, ref processedSteps,totalSteps);
 
-            return embossedImage;
+            string name = @"\" + myJobElements.Name + ".png";
+            embossedImage.Save(RESULT_FILE_PATH + name, ImageFormat.Png);
+            this.Progress = 100;
         }
 
-        public static Bitmap ConvertToGrayscale(Bitmap image)
+        public Bitmap ConvertToGrayscale(Bitmap image, ref int processedSteps, int totalSteps)
         {
             Bitmap grayscaleImage = new Bitmap(image.Width, image.Height);
 
@@ -42,13 +51,16 @@ namespace OPOS_project.Specific_jobs
                     int intensity = (int)((pixel.R + pixel.G + pixel.B) / 3.0);
                     Color newPixel = Color.FromArgb(intensity, intensity, intensity);
                     grayscaleImage.SetPixel(x, y, newPixel);
+
+                    processedSteps++;
+                    this.Progress = (int)((double)processedSteps / totalSteps * 100);
                 }
             }
 
             return grayscaleImage;
         }
 
-        public static Bitmap ApplyConvolution(Bitmap image, int[,] kernel)
+        public Bitmap ApplyConvolution(Bitmap image, int[,] kernel, ref int processedSteps, int totalSteps)
         {
             Bitmap result = new Bitmap(image.Width, image.Height);
 
@@ -78,6 +90,9 @@ namespace OPOS_project.Specific_jobs
                     newG = Math.Min(255, Math.Max(0, newG));
                     newB = Math.Min(255, Math.Max(0, newB));
                     result.SetPixel(x, y, Color.FromArgb(newR, newG, newB));
+
+                    processedSteps++;
+                    this.Progress = (int)((double)processedSteps / totalSteps * 100);
                 }
             }
 

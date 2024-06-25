@@ -19,8 +19,11 @@ namespace OPOS_project.Scheduler
     }
      abstract public class Job: IStatefulJob, IRunnableJob
     {
+        protected static String RESULT_FILE_PATH = @"../../../Results";
+
         private ManualResetEventSlim pauseEvent = new ManualResetEventSlim(false);
         private State state = State.NotStarted;
+        public int Progress { get; protected set; }
         public string Name { get; set; } = "Job";
 
         private readonly object stateLock = new();
@@ -56,6 +59,7 @@ namespace OPOS_project.Scheduler
                 {
                     case State.NotStarted:
                         state = State.Running;
+                        OnResumeRequested(this);
 
                         break;
                     case State.Running:
@@ -74,36 +78,7 @@ namespace OPOS_project.Scheduler
 
             Action methodToRun = RunThisJob;
             Task.Run(methodToRun);
-            /*  Task.Run(async () =>
-              {
-
-
-                  Console.WriteLine("ispisivanje stanja unutar taska " + state.ToString());
-                  while (state == State.Paused)
-                  {
-                      pauseEvent.Wait();
-
-                  }
-
-                  Console.WriteLine("izlazi iz if");
-
-
-                  if (state == State.Stopped)
-                  {
-                      Console.WriteLine("stopped ");
-                      return;
-                  }
-                  Console.WriteLine("Iteracija: " + i);
-                  Thread.Sleep(1000);
-
-
-
-                  lock (stateLock)
-                  {
-                      State = State.Finished;
-                  }
-              });
-            */
+           
 
         }
         internal void Pause(){
@@ -119,7 +94,7 @@ namespace OPOS_project.Scheduler
                      
                     case State.Running:
                         state = State.Paused;
-                        pauseEvent.Set();
+                        OnPaused();
                         break;
                    
                     case State.Paused:
@@ -147,10 +122,11 @@ namespace OPOS_project.Scheduler
                    
                     case State.Paused:
 
+                        
                         state = State.Running;
+                        OnResumeRequested(this);
+                        pauseEvent.Set();
                        
-
-                        pauseEvent.Reset();
                         Console.WriteLine(this.state);
                         Console.WriteLine("pulsirano");
                         break;
@@ -173,13 +149,16 @@ namespace OPOS_project.Scheduler
                 {
                     case State.NotStarted:
                         state = State.Stopped;
+                        OnStopped();
                         break;
                     case State.Running:
                         state = State.Stopped;
+                        OnStopped();
                         break;
                  
                     case State.Paused:
                         state = State.Stopped;
+                        OnStopped();
                         break;
                     
                     case State.Stopped:
@@ -219,8 +198,7 @@ namespace OPOS_project.Scheduler
         }
         public void checkState()
         {
-            lock(stateLock)
-            {
+            
                 switch (state)
                 {
                     case State.NotStarted:
@@ -228,14 +206,20 @@ namespace OPOS_project.Scheduler
                     case State.Running:
                         break;
                     case State.Paused:
-                        pauseEvent.Wait();
+                        OnPaused();
+                        while(state == State.Paused)
+                        {
+                            pauseEvent.Wait();
+                        }
                         break;
                     case State.Stopped:
-                        throw new InvalidOperationException("Cannot check the state after stopping the job");
+                        state = State.Stopped;
+                        OnStopped();
+                        break;
                     case State.Finished:
                         throw new InvalidOperationException("Cannot check the state after finishing the job");
                 }
-            }
+            
         }
 
         abstract public void RunThisJob();

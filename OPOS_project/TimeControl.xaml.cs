@@ -418,17 +418,17 @@ namespace OPOS_project
         /// <summary>
         /// Toggles the am pm.
         /// </summary>
-       /* private void ToggleAmPm()
-        {
-            if ("AM".Equals(this.txtSeconds.Text))
-            {
-                this.txtSeconds.Text = "PM";
-            }
-            else
-            {
-                this.txtSeconds.Text = "AM";
-            }
-        }*/
+        /* private void ToggleAmPm()
+         {
+             if ("AM".Equals(this.txtSeconds.Text))
+             {
+                 this.txtSeconds.Text = "PM";
+             }
+             else
+             {
+                 this.txtSeconds.Text = "AM";
+             }
+         }*/
 
         #endregion
 
@@ -436,8 +436,14 @@ namespace OPOS_project
         // Your existing methods and event handlers...
 
         // Example event handler for when the minutes textbox changes
+        public void ClearValues()
+        {
+            this.txtHours.Text = "00";
+            this.txtMinutes.Text = "00";
+            this.txtSeconds.Text = "00";
+        }
 
 
-       
     }
+   
 }

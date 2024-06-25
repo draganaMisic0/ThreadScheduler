@@ -11,16 +11,14 @@ namespace OPOS_project.Scheduler
     {
 
         public static Job createJob(JobCreationElements jobElements, int priority = 1) 
-        { 
-        
-            if(jobElements.JobType==JobType.Blur)
+        {
+
+            if (jobElements.JobType == JobType.Blur)
                 return new BlurImageJob(jobElements, priority);
-            else if(jobElements.JobType == JobType.DetectEdges)
+            else if (jobElements.JobType == JobType.DetectEdges)
                 return new DetectEdgesJob(jobElements, priority);
-            else if(jobElements.JobType == JobType.Embossing)
+            else if (jobElements.JobType == JobType.Embossing)
                 return new EmbossingJob(jobElements, priority);
-            else if(jobElements.JobType == JobType.EqualizeHistogram)
-                return new EqualizeHIstogramJob(jobElements, priority);
             else
                 return new SharpenImageJob(jobElements, priority);
         }
