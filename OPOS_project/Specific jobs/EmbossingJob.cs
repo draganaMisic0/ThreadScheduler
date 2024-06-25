@@ -34,6 +34,7 @@ namespace OPOS_project.Specific_jobs
             // Apply embossing convolution
             Bitmap embossedImage = ApplyConvolution(grayscaleImage, embossKernel, ref processedSteps,totalSteps);
 
+            this.Finish();
             string name = @"\" + myJobElements.Name + ".png";
             embossedImage.Save(RESULT_FILE_PATH + name, ImageFormat.Png);
             this.Progress = 100;
@@ -47,6 +48,7 @@ namespace OPOS_project.Specific_jobs
             {
                 for (int x = 0; x < image.Width; x++)
                 {
+                    this.checkState();
                     Color pixel = image.GetPixel(x, y);
                     int intensity = (int)((pixel.R + pixel.G + pixel.B) / 3.0);
                     Color newPixel = Color.FromArgb(intensity, intensity, intensity);
@@ -79,6 +81,7 @@ namespace OPOS_project.Specific_jobs
                     {
                         for (int kx = -kCenterX; kx <= kCenterX; kx++)
                         {
+                            this.checkState();
                             int pixelVal = image.GetPixel(x + kx, y + ky).R;
                             newR += pixelVal * kernel[ky + kCenterY, kx + kCenterX];
                             newG += pixelVal * kernel[ky + kCenterY, kx + kCenterX];

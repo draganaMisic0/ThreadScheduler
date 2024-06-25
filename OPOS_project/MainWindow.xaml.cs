@@ -42,6 +42,7 @@ namespace OPOS_project
         public MainWindow()
         {
             InitializeComponent();
+            this.ResizeMode = ResizeMode.CanMinimize;
             comboBoxSelectJob.Items.Clear();
             JobType[] elements = (JobType[])Enum.GetValues(typeof(JobType));
             foreach (JobType element in elements)

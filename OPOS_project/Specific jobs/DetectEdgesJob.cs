@@ -44,6 +44,9 @@ namespace OPOS_project.Specific_jobs
             // Combine horizontal and vertical edges
             Bitmap combinedEdges = CombineEdgeImages(horizontalEdges, verticalEdges);
 
+
+            this.Finish();
+
             string name = @"\" + myJobElements.Name + ".png";
             combinedEdges.Save(RESULT_FILE_PATH + name, ImageFormat.Png);
         }
@@ -56,7 +59,8 @@ namespace OPOS_project.Specific_jobs
              {
                  for (int x = 0; x < image.Width; x++)
                  {
-                     Color pixel = image.GetPixel(x, y);
+                    this.checkState();
+                    Color pixel = image.GetPixel(x, y);
                      int intensity = (int)(0.3 * pixel.R + 0.59 * pixel.G + 0.11 * pixel.B);
                      Color newPixel = Color.FromArgb(intensity, intensity, intensity);
                      grayscaleImage.SetPixel(x, y, newPixel);
@@ -89,7 +93,8 @@ namespace OPOS_project.Specific_jobs
                      {
                          for (int kx = -kCenterX; kx <= kCenterX; kx++)
                          {
-                             int pixelVal = image.GetPixel(x + kx, y + ky).R;
+                            this.checkState();
+                            int pixelVal = image.GetPixel(x + kx, y + ky).R;
                              newColorValue += pixelVal * kernel[ky + kCenterY, kx + kCenterX];
                          }
                      }
@@ -116,15 +121,15 @@ namespace OPOS_project.Specific_jobs
              {
                  for (int x = 0; x < width; x++)
                  {
-                     Color horizontalPixel = horizontalEdges.GetPixel(x, y);
+                    this.checkState();
+                    Color horizontalPixel = horizontalEdges.GetPixel(x, y);
                      Color verticalPixel = verticalEdges.GetPixel(x, y);
 
                      int grayValue = Math.Min(255, (int)Math.Sqrt(horizontalPixel.R * horizontalPixel.R + verticalPixel.R * verticalPixel.R));
                      combinedEdges.SetPixel(x, y, Color.FromArgb(grayValue, grayValue, grayValue));
                  }
              }
-
-             return combinedEdges;
+            return combinedEdges;
          }
        
     }

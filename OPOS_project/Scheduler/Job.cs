@@ -19,12 +19,12 @@ namespace OPOS_project.Scheduler
     }
      abstract public class Job: IStatefulJob, IRunnableJob
     {
-        protected static String RESULT_FILE_PATH = @"../../../Results";
+        public readonly static String RESULT_FILE_PATH = @"../../../Results";
 
         private ManualResetEventSlim pauseEvent = new ManualResetEventSlim(false);
         private State state = State.NotStarted;
         public int Progress { get; protected set; }
-        public string Name { get; set; } = "Job";
+        //public string Name { get; set; } = "Job";
 
         private readonly object stateLock = new();
         public JobCreationElements myJobElements { get; private set; }
@@ -169,7 +169,7 @@ namespace OPOS_project.Scheduler
             }
         }
 
-        private void Finish()
+        internal void Finish()
         {
             lock (stateLock)
             {
@@ -178,6 +178,9 @@ namespace OPOS_project.Scheduler
                     case State.NotStarted:
                         throw new InvalidOperationException("Job cannot finish before starting.");
                     case State.Running:
+                        this.state = State.Finished;
+                        OnFinished();
+                        break;
                     //case JobState.RunningWithPauseRequest:
                    /* case JobState.RunningWithStopRequest:
                         state = JobState.Finished;
@@ -190,7 +193,7 @@ namespace OPOS_project.Scheduler
                         throw new InvalidOperationException("Job cannot finish while in waiting state.");
                     */
                     case State.Stopped:
-                        throw new InvalidOperationException("Job cannot finish after being stopped.");
+                        break;
                     case State.Finished:
                         return;
                 }

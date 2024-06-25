@@ -43,6 +43,7 @@ namespace OPOS_project.Specific_jobs
                     {
                         for (int kx = 0; kx < kernelSize; kx++)
                         {
+                            this.checkState();
                             Color pixel = myJobElements.Image.GetPixel(x + kx - kernelOffset, y + ky - kernelOffset);
                             r += pixel.R * kernel[ky, kx];
                             g += pixel.G * kernel[ky, kx];
@@ -60,7 +61,7 @@ namespace OPOS_project.Specific_jobs
                     this.Progress = (int)((double)processedPixels / totalPixels * 100);
                 }
             }
-
+            this.Finish();
             string name = @"\" + myJobElements.Name + ".png";
             sharpened.Save(RESULT_FILE_PATH + name, ImageFormat.Png);
         }

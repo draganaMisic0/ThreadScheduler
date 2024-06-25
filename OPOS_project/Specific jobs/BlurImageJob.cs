@@ -77,6 +77,7 @@ namespace OPOS_project.Specific_jobs
                     this.Progress = (int)((double)processed_pixels / totalPixels * 100);
                 }
             }
+            this.Finish();
             string name = @"\" + myJobElements.Name + ".png";
             blurred.Save(RESULT_FILE_PATH + name, ImageFormat.Png);
         }
