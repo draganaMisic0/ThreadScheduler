@@ -10,6 +10,7 @@ namespace OPOS_project.Specific_jobs
 {
     internal class EmbossingJob : Job
     {
+        public EmbossingJob(JobCreationElements elements, int priority) : base(elements, priority) { }
 
         public static Bitmap Run(Bitmap image)
         {

@@ -19,7 +19,7 @@
             <ColumnDefinition Width="487*"/>
             <ColumnDefinition Width="466*"/>
         </Grid.ColumnDefinitions>
-        <DatePicker x:Name="datePicker" Margin="49,256,0,0" VerticalAlignment="Top" Height="25" Width="243" Text="tekst" FirstDayOfWeek="Monday" FontSize="11" HorizontalAlignment="Left" RenderTransformOrigin="0,0.5" SelectedDateChanged="DatePicker_SelectedDateChanged">
+        <DatePicker x:Name="startDatePicker" Margin="52,263,0,0" VerticalAlignment="Top" Height="25" Width="243" Text="tekst" FirstDayOfWeek="Monday" FontSize="11" HorizontalAlignment="Left" RenderTransformOrigin="0,0.5" SelectedDateChanged="DatePicker_SelectedDateChanged">
             <DatePicker.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.5" ScaleX="1.5"/>
@@ -30,10 +30,10 @@
             </DatePicker.RenderTransform>
         </DatePicker>
         <Button x:Name="addJobButton" Content="Add a job" HorizontalAlignment="Left" Margin="55,491,0,0" VerticalAlignment="Top" Width="148" Height="49" FontSize="18" Click="addJobButton_Click"/>
-        <Label x:Name="title" Content="Select a job " HorizontalAlignment="Left" Margin="48,47,0,0" VerticalAlignment="Top" Width="241" Height="40" FontSize="24" FontWeight="Bold"/>
+        <Label x:Name="title" Content="Select a job " HorizontalAlignment="Left" Margin="52,27,0,0" VerticalAlignment="Top" Width="241" Height="40" FontSize="24" FontWeight="Bold"/>
 
-        <ComboBox x:Name="comboBoxSelectJob" HorizontalAlignment="Left" Margin="52,126,0,0" VerticalAlignment="Top" Width="302" Height="37" SelectionChanged="ComboBox_SelectionChanged" DropDownOpened="ComboBox_DropDownOpened"/>
-        <local:TimeControl x:Name="timeControl"  Margin="0,308,71,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="368" Height="49" Loaded="timeControl_Loaded" RenderTransformOrigin="0.5,0.5">
+        <ComboBox x:Name="comboBoxSelectJob" HorizontalAlignment="Left" Margin="52,96,0,0" VerticalAlignment="Top" Width="302" Height="37" SelectionChanged="ComboBox_SelectionChanged" DropDownOpened="ComboBox_DropDownOpened"/>
+        <local:TimeControl x:Name="startTimePicker"  Margin="0,318,71,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="368" Height="49" Loaded="timeControl_Loaded" RenderTransformOrigin="0.5,0.5">
             <local:TimeControl.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -43,13 +43,43 @@
                 </TransformGroup>
             </local:TimeControl.RenderTransform>
         </local:TimeControl>
-        <Button x:Name="uploadButton" Content="Upload Image" Click="UploadButton_Click" RenderTransformOrigin="-1.798,5.866" Margin="368,128,0,425" HorizontalAlignment="Left" Width="77"/>
-        <Label x:Name="jobsAddedTitle" Grid.Column="1" Content="Added jobs" HorizontalAlignment="Left" Margin="18,48,0,0" VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
-        <TextBox  x:Name="testTextBox" Grid.Column="1" HorizontalAlignment="Left" Margin="96,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Height="131"/>
-        <Button x:Name="testButton" Grid.Column="1" Content="Button" HorizontalAlignment="Left" Margin="120,466,0,0" VerticalAlignment="Top" Height="50" Width="61" Click="testButton_Click"/>
-        <Button x:Name="startJobsButton" Grid.Column="1" Content="Start jobs" HorizontalAlignment="Left" Margin="266,466,0,0" VerticalAlignment="Top" Height="50" Width="87" Click="startJobsButton_Click"/>
-        <Label x:Name="imagePath" Content="" HorizontalAlignment="Left" Margin="52,185,0,0" VerticalAlignment="Top" Width="362" Height="36" FontSize="16"/>
+        <Button x:Name="uploadButton" Content="Upload Image" Click="UploadButton_Click" RenderTransformOrigin="-1.798,5.866" Margin="386,96,0,455" HorizontalAlignment="Left" Width="90"/>
+        <TextBox  x:Name="testTextBox" HorizontalAlignment="Left" Margin="161,67,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Height="131" Grid.Column="1"/>
+        <Button x:Name="startJobsButton" Grid.Column="1" Content="Start jobs" HorizontalAlignment="Left" Margin="287,487,0,0" VerticalAlignment="Top" Height="51" Width="88" Click="startJobsButton_Click"/>
+        <Label x:Name="imagePath" Content="" HorizontalAlignment="Left" Margin="52,162,0,0" VerticalAlignment="Top" Width="362" Height="36" FontSize="16"/>
         <Image x:Name="testImage" Grid.Column="1" HorizontalAlignment="Left" Height="170" Margin="181,47,0,0" VerticalAlignment="Top" Width="228"/>
+        <CheckBox x:Name="checkTimedJobOption" Content="Schedule time" HorizontalAlignment="Left" Height="36" Margin="52,209,0,0" VerticalAlignment="Top" Width="253" FontSize="20" Checked="checkTimedJobOption_Checked"/>
+        <DatePicker x:Name="endDatePicker" Margin="10,263,0,0" VerticalAlignment="Top" Height="25" Width="243" Text="tekst" FirstDayOfWeek="Monday" FontSize="11" HorizontalAlignment="Left" RenderTransformOrigin="0,0.5" SelectedDateChanged="DatePicker_SelectedDateChanged" Grid.Column="1">
+            <DatePicker.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1.5" ScaleX="1.5"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </DatePicker.RenderTransform>
+        </DatePicker>
+        <local:TimeControl x:Name="endTimePicker"  Margin="0,318,92,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="368" Height="49" Loaded="timeControl_Loaded" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+            <local:TimeControl.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="1.252"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.47"/>
+                </TransformGroup>
+            </local:TimeControl.RenderTransform>
+        </local:TimeControl>
+        <local:TimeControl x:Name="totalExecutionTimePicker"  Margin="0,405,92,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="368" Height="49" Loaded="timeControl_Loaded" RenderTransformOrigin="0.5,0.5" Grid.Column="1">
+            <local:TimeControl.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="1.252"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.47"/>
+                </TransformGroup>
+            </local:TimeControl.RenderTransform>
+        </local:TimeControl>
+        <TextBox HorizontalAlignment="Left" Margin="286,404,0,0" TextWrapping="Wrap" Text="Total execution time: " VerticalAlignment="Top" Width="201" Height="46" FontSize="20"/>
 
 
 

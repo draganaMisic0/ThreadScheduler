@@ -5,19 +5,17 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace OPOS_project.Specific_jobs
 {
-    internal class DetectEdgesJob: Job, IRunnableJob
+    internal class DetectEdgesJob: Job
     {
-        public DetectEdgesJob(JobCreationElements myJobElements, int priority) : base (myJobElements, priority)
-        {
-
-        }
-        public static Bitmap Run(Bitmap image)
+        public DetectEdgesJob(JobCreationElements myJobElements, int priority) : base (myJobElements, priority) {}
+        public override void RunThisJob()
         {
             // Convert image to grayscale
-            Bitmap grayscaleImage = ConvertToGrayscale(image);
+            Bitmap grayscaleImage = ConvertToGrayscale(myJobElements.Image);
 
             // Define Sobel kernels
             int[,] horizontalSobel = {

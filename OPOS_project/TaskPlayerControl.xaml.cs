@@ -34,7 +34,7 @@ namespace OPOS_project
                 
                 if (myJob == null)
                 {   //ovdje ne kreiram job jer je kreiran u new window konstruktoru 
-                    myJob = new Job(jobElements, 1);
+                    //myJob = new Job(jobElements, 1);
                     playButton.Content = "Resume";
                     myJob.Start(myJob.Run);
                 }

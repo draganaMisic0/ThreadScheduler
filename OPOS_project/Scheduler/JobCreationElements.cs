@@ -24,19 +24,22 @@ namespace OPOS_project.Scheduler
         public string Name { get; private set; }
         public JobType? JobType { get; private set; }
         public DateTime? StartDateAndTime { get; private set; }
+
+        public DateTime? Deadline { get; private set; }
+        public int? TotalExecutionTime { get; private set; }
         public BitmapImage? Image {  get; private set; }
         
-
-        public JobCreationElements(string Name, JobType? jobType, DateTime? startDateAndTime, BitmapImage? image)
+        public JobCreationElements(string Name, JobType? jobType, BitmapImage? image, 
+            DateTime? startDateAndTime=null, DateTime? Deadline = null, int? TotalExecutionTime=null) 
         {
             this.Name = Name;
             this.JobType = jobType;
-            this.StartDateAndTime = startDateAndTime;
             this.Image = image;
-        }
-        public void Run(IStatefulJob isj) {
+            this.StartDateAndTime = startDateAndTime;
+            this.Deadline = Deadline;   
+            this.TotalExecutionTime = TotalExecutionTime;
 
-        }
-        
+        }    
+      
     }
 }

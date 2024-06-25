@@ -10,7 +10,7 @@ namespace OPOS_project.Specific_jobs
 {
     internal class SharpenImageJob : Job
     {
-        public SharpenImageJob() { }    
+        public SharpenImageJob(JobCreationElements elements, int priority): base(elements, priority) { }    
         public static Bitmap Run(Bitmap image)
         {
             Bitmap sharpened = new Bitmap(image.Width, image.Height);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OPOS_project.Scheduler;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -7,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace OPOS_project.Specific_jobs
 {
-    internal class EqualizeHIstogramJob
+    internal class EqualizeHIstogramJob : Job
     {
+        public EqualizeHIstogramJob(JobCreationElements elements, int priority): base(elements, priority) { }
         public static Bitmap Run(Bitmap image)
         {
             // Define the sharpening kernel

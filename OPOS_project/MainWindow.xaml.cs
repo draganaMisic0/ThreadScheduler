@@ -162,5 +162,10 @@ namespace OPOS_project
                  listOfJobs.Add(new JobCreationElements($"{selectedJobType.ToString()}_{listOfJobs.Count}",selectedJobType, selectedDate, selectedImage));
 
         }
+
+        private void checkTimedJobOption_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

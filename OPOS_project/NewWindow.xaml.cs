@@ -24,19 +24,26 @@ namespace OPOS_project
     public partial class NewWindow : Window
     {
         List<TaskPlayerControl> tpcList = new List<TaskPlayerControl>();
+        //Moze ovdje i List<job> gdje ces cuvati sve kreirane jobove (tipa BlurImageJob, SharpenImageJob...)
         public NewWindow()
         {
             InitializeComponent();
-            foreach (JobCreationElements currentElement in MainWindow.getListOfJobs()) { 
+            //ovdje kreirati factory objekat
 
+            
+            foreach (JobCreationElements currentElement in MainWindow.getListOfJobs()) { 
+                
                 TaskPlayerControl tpc=new TaskPlayerControl();
-                tpc.Tag= currentElement;
-                tpc.jobName.Content = currentElement.Name;
-                stackPanel.Children.Add(tpc);
-                tpcList.Add(tpc);
+               
+                    //ovdje mozes dodavati u listu pomocu factory objekta (npr. factoryObject.createJob(JobCreationElements type))
+                    tpc.Tag = JobFactory.createJob(currentElement); //current element ce biti taj novi dodati Job
+                    tpc.jobName.Content = currentElement.Name;
+                    stackPanel.Children.Add(tpc);
+                    tpcList.Add(tpc);
+                
             }
         }
-        
+       
         private void TaskPlayerControl_Loaded(object sender, RoutedEventArgs e)
         {
            // Job job = new Job();

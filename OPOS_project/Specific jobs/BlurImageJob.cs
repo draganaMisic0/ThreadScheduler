@@ -14,28 +14,17 @@ namespace OPOS_project.Specific_jobs
     {
         public string Path { get; init; } = "Blur";
 
-       // BitmapImage image=new BitmapImage();
-     
-        public BlurImageJob(JobCreationElements elements, int priority) : 
-            base(elements, priority)
-        {
-           // this.image = (image == null ? new BitmapImage() : image);
-        }
+        // BitmapImage image=new BitmapImage();
+
+        public BlurImageJob(JobCreationElements elements, int priority) : base(elements, priority) { }
        
-        public void Run(IStatefulJob isj)
+        public override void RunThisJob()
         {
             int blurSize = 5;
-           
-            Bitmap blurred = new Bitmap(this.Image.PixelWidth, this.Image.PixelHeight);
+          
+            Bitmap blurred = new Bitmap(this.myJobElements.Image.PixelHeight, this.myJobElements.Image.PixelWidth);
                
-            /*
-
-            // Make an exact copy of the bitmap provided
-            Graphics graphics = Graphics.FromImage(blurred);
-            graphics.DrawImage(blurred, new Rectangle(0, 0, this.Image.PixelWidth, this.Image.PixelHeight), 
-                new Rectangle(0, 0, this.Image.PixelWidth, this.Image.PixelHeight), GraphicsUnit.Pixel);
-            
-            */
+         
             // Look at every pixel in the blur rectangle
             for (int xx = 0; xx < blurred.Width; xx++)
             {

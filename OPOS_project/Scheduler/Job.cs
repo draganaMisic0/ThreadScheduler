@@ -17,14 +17,18 @@ namespace OPOS_project.Scheduler
         Stopped,
         Finished
     }
-     public class Job: IStatefulJob, IRunnableJob
+     abstract public class Job: IStatefulJob, IRunnableJob
     {
         private ManualResetEventSlim pauseEvent = new ManualResetEventSlim(false);
         private State state = State.NotStarted;
         public string Name { get; set; } = "Job";
 
         private readonly object stateLock = new();
-        private readonly JobCreationElements myJobElements;
+        public JobCreationElements myJobElements { get; private set; }
+        public Boolean IsTimedJob { 
+            get { return myJobElements.StartDateAndTime != null || myJobElements.Deadline != null 
+                    || myJobElements.TotalExecutionTime!=null; }
+            } 
         
         public int Priority { get; set; } = 1;
         public State State
@@ -32,6 +36,10 @@ namespace OPOS_project.Scheduler
             get { return state; }
             set { state = value; }
         }
+        internal Action OnPaused { get; set; } = () => { };
+        internal Action OnStopped { get; set; } = () => { };
+        internal Action OnFinished { get; set; } = () => { };
+        internal Action<Job> OnResumeRequested { get; set; } = (Job job) => { };
         public Job(JobCreationElements myJobElements, int priority)
         {
             this.myJobElements = myJobElements;
@@ -39,7 +47,7 @@ namespace OPOS_project.Scheduler
             
         }
 
-        public void Start(Action methodToRun) {
+        public void Start() {
 
             lock (stateLock)
             {
@@ -62,7 +70,9 @@ namespace OPOS_project.Scheduler
                         throw new InvalidOperationException("Job cannot be started in the finished state.");
                 }
             }
-            
+
+
+            Action methodToRun = RunThisJob;
             Task.Run(methodToRun);
             /*  Task.Run(async () =>
               {
@@ -228,6 +238,6 @@ namespace OPOS_project.Scheduler
             }
         }
 
-        abstract public void Run();
+        abstract public void RunThisJob();
     }
 }

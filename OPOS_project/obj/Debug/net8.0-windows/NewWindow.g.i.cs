@@ -61,7 +61,7 @@ namespace OPOS_project {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/OPOS_project;V1.0.0.0;component/newwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/OPOS_project;component/newwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\NewWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
