@@ -36,8 +36,8 @@ namespace OPOS_project
                 TaskPlayerControl tpc=new TaskPlayerControl(Scheduler.Scheduler.getInstance().Schedule(currentElement));
 
 
-                //ovdje mozes dodavati u listu pomocu factory objekta (npr. factoryObject.createJob(JobCreationElements type))
-                tpc.Tag = currentElement; //current element ce biti taj novi dodati Job
+                
+                tpc.Tag = currentElement;
                     tpc.jobName.Content = currentElement.Name;
                     stackPanel.Children.Add(tpc);
                     tpcList.Add(tpc);
@@ -47,11 +47,7 @@ namespace OPOS_project
             }
         }
        
-        private void TaskPlayerControl_Loaded(object sender, RoutedEventArgs e)
-        {
-           // Job job = new Job();
-        }
-        
+      
 
 
 

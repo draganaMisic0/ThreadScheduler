@@ -247,9 +247,9 @@ namespace OPOS_project
             if (isUp)
             {
                 value += 1;
-                if (value == 13)
+                if (value == 24)
                 {
-                    value = 1;
+                    value = 0;
                 }
             }
             else
@@ -257,7 +257,7 @@ namespace OPOS_project
                 value -= 1;
                 if (value == 0)
                 {
-                    value = 12;
+                    value = 23;
                 }
             }
             this.txtHours.Text = Convert.ToString(value);

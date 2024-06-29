@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:OPOS_project"
              mc:Ignorable="d" Height="50" Width="685">
     <Grid Margin="0,10,0,0">
-        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="30" Margin="134,0,0,0" VerticalAlignment="Center" Width="318" DataContextChanged="progressBar_DataContextChanged"/>
+        <ProgressBar x:Name="progressBar" HorizontalAlignment="Left" Height="30" Margin="134,0,0,0" VerticalAlignment="Center" Width="318"/>
         <Button x:Name="playButton" Content="Play" HorizontalAlignment="Left" Margin="490,0,0,0" VerticalAlignment="Center" Height="30" Width="53" Click="playButton_Click"/>
         <Button x:Name="pauseButton" Content="Pause" HorizontalAlignment="Left" Margin="556,0,0,0" VerticalAlignment="Center" Height="30" Width="40" ButtonBase.Click="pauseButtton_Click"/>
         <Button x:Name="stopButton" Content="Stop" HorizontalAlignment="Left" Margin="609,0,0,0" VerticalAlignment="Center" Height="30" Width="40" RenderTransformOrigin="0.169,0.484" Click="stopButton_Click"/>

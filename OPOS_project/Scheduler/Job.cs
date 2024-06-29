@@ -23,7 +23,7 @@ namespace OPOS_project.Scheduler
 
         private ManualResetEventSlim pauseEvent = new ManualResetEventSlim(false);
         private State state = State.NotStarted;
-        public int Progress { get; protected set; }
+        public int Progress { get; protected set; } = 0;
         //public string Name { get; set; } = "Job";
 
         private readonly object stateLock = new();
@@ -34,6 +34,18 @@ namespace OPOS_project.Scheduler
             } 
         
         public int Priority { get; set; } = 1;
+        public int ExecutionTime { get; set; }
+
+        public async void calculateExecutionTime()
+        {
+            while (this.State == State.Running)
+            {
+                await Task.Delay(1000);
+                ExecutionTime++;
+            }
+            return;
+           
+        }
         public State State
         {
             get { return state; }

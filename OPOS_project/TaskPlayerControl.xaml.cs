@@ -34,10 +34,36 @@ namespace OPOS_project
             myJob = job;
             this.progressBar.Maximum = 100;
             this.progressBar.Value = 0;
+            updateProgressBar();
 
            
 
             messageLabel.Visibility = Visibility.Collapsed;
+        }
+    
+
+        private async void updateProgressBar()
+        {
+            while (myJob.State != State.Finished)
+            {
+
+                this.progressBar.Value = myJob.Progress;
+
+                
+                await Task.Delay(200);
+            }
+            if (myJob.State.Equals(State.Finished))
+            {
+                playButton.Visibility = Visibility.Hidden;
+                pauseButton.Visibility = Visibility.Hidden;
+                stopButton.Content = "Show Result";
+                stopButton.Width = 93; //Pause button width + gap + stop button width
+                messageLabel.Visibility = Visibility.Visible;
+                messageLabel.Content = "Job finished!";
+                stopButton.Margin = pauseButton.Margin;
+                progressBar.Value = 100;
+
+            }
         }
     
         private async void playButton_Click(object sender, RoutedEventArgs e)
@@ -53,6 +79,7 @@ namespace OPOS_project
                     if (myJob.State == State.Paused) //Ovo je slucaj kada je Resume button
                     {
                         scheduler.ResumeJob(myJob);
+                        
 
                     }
                     else
@@ -61,28 +88,12 @@ namespace OPOS_project
                         playButton.Content = "Resume";
                     }
 
-                    while (myJob.State == State.Running)
-                    {
-                        this.progressBar.Value = myJob.Progress;
-
-                        await Task.Delay(200);
-                    }
-                    if (myJob.State.Equals(State.Finished))
-                    {
-                        playButton.Visibility = Visibility.Hidden;
-                        pauseButton.Visibility = Visibility.Hidden;
-                        stopButton.Content = "Show Result";
-                        stopButton.Width = 93; //Pause button width + gap + stop button width
-                        messageLabel.Visibility = Visibility.Visible;
-                        messageLabel.Content = "Job finished!";
-                        stopButton.Margin = pauseButton.Margin;
-                        progressBar.Value = 100;
-
-                    }
+                    //updateProgressBar();
+                    
 
                 }
 
-                else
+                else  //ako nije kreiran posao, kreira se i scheduluje
                 {
                     Console.WriteLine("scheduluje job");
                     myJob = scheduler.Schedule(myJobCreationElements);
@@ -131,12 +142,6 @@ namespace OPOS_project
             
         }
         
-        private async void progressBar_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            
-                //progressBar.Value = myJobTag.Progress;
-            
-
-        }
+       
     }
 }
