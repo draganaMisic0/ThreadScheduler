@@ -33,15 +33,17 @@ namespace OPOS_project
             this.ResizeMode = ResizeMode.CanMinimize;
             foreach (JobCreationElements currentElement in MainWindow.getListOfJobs()) { 
                 
-                TaskPlayerControl tpc=new TaskPlayerControl();
-               
-                    
-                    //ovdje mozes dodavati u listu pomocu factory objekta (npr. factoryObject.createJob(JobCreationElements type))
-                    tpc.Tag = JobFactory.createJob(currentElement); //current element ce biti taj novi dodati Job
+                TaskPlayerControl tpc=new TaskPlayerControl(Scheduler.Scheduler.getInstance().Schedule(currentElement));
+
+
+                //ovdje mozes dodavati u listu pomocu factory objekta (npr. factoryObject.createJob(JobCreationElements type))
+                tpc.Tag = currentElement; //current element ce biti taj novi dodati Job
                     tpc.jobName.Content = currentElement.Name;
                     stackPanel.Children.Add(tpc);
                     tpcList.Add(tpc);
+
                 
+
             }
         }
        
