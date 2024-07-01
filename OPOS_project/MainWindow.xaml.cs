@@ -20,6 +20,7 @@ namespace OPOS_project
 
         public MainWindow()
         {
+           
             InitializeComponent();
             this.ResizeMode = ResizeMode.CanMinimize;
             comboBoxSelectJob.Items.Clear();
@@ -242,6 +243,14 @@ namespace OPOS_project
                 (DateTime.Now).AddSeconds(7), (DateTime.Now).AddMinutes(1), 10));
 
             listOfJobs.Add(new JobCreationElements($"Sharpen_6",JobType.Sharpen, new Bitmap(bitmapPath1)));
+
+            listOfJobs.Add(new JobCreationElements($"Blur_7", JobType.Blur, new Bitmap(bitmapPath2),
+                (DateTime.Now).AddSeconds(10), (DateTime.Now).AddSeconds(15), 30));
+
+            listOfJobs.Add(new JobCreationElements($"Blur_8", JobType.Blur, new Bitmap(bitmapPath2),
+                (DateTime.Now).AddSeconds(12), (DateTime.Now).AddSeconds(30), 8));
+
+
         }
     }
 }

@@ -79,19 +79,59 @@
             }
         }
 
-        private Timer timer = null;
+        private Timer timer1 = null;
+        
 
         private void startQueueChecker()
         {
             Task.Run(() =>
             {
-                if (timer == null)
+                if (timer1 == null)
                 {
-                    timer = new Timer(CheckQueue, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+                    timer1 = new Timer(CheckQueue, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+                    
                 }
             });
         }
+        private void endQueueChecker(Job job)
+        {
+            Task.Run(() =>
+            {
+                if (job.timer == null)
+                {
 
+                    job.timer = new Timer(IncrementExecutionTimer, job, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+
+                }
+            });
+        }
+        private async void IncrementExecutionTimer(object job)
+        {
+            Job thisJob=(Job)job;
+           
+            lock (_lock)
+            {
+                
+                thisJob.SecondsOfExecution++;
+                if (State.Running.Equals(thisJob.State))
+                {
+                    if (thisJob.myJobElements.TotalExecutionTime != 0) 
+                    {
+                        if(thisJob.SecondsOfExecution > thisJob.myJobElements.TotalExecutionTime
+                            || DateTime.Now > thisJob.myJobElements.Deadline)
+                        {
+                            this.StopJob(thisJob);
+                        }
+                    }
+
+                }
+                else
+                {
+                    ((Job)job).timer.Dispose();
+                }
+            }
+
+        }
         private async void CheckQueue(object state)
         {
 
@@ -125,7 +165,7 @@
                 }
                 else
                 {
-                    timer.Dispose();   //timer stops when there are no more jobs in queue
+                    timer1.Dispose();   //timer stops when there are no more jobs in queue
                 }
             }
         }
@@ -140,6 +180,10 @@
                     {
                         newJob.Start();
                         currentNumOfRunningJobs++;
+                        if (newJob.IsTimedJob)
+                        {
+                            endQueueChecker(newJob);
+                        }
                     }
                     else
                     {
@@ -160,11 +204,16 @@
             {
                 if (currentNumOfRunningJobs < maxNumOfRunningJobs)
                 {
+                    
                     if (newJob.State == State.Paused)
                     {
                         newJob.Resume();
 
                         currentNumOfRunningJobs++;
+                        if (newJob.IsTimedJob)
+                        {
+                            endQueueChecker(newJob);
+                        }
                     }
                     else
                     {
@@ -191,6 +240,7 @@
                 if (job.ExecutionTime > (int)job.myJobElements.TotalExecutionTime)
                 {
                     StopJob(job);
+
                 }
             }
         }

@@ -18,7 +18,8 @@
         public int Progress { get; protected set; } = 0;
         private readonly object stateLock = new();
         public JobCreationElements myJobElements { get; private set; }
-
+        public int SecondsOfExecution { get;  set; }
+        public Timer timer = null;
         public Boolean IsTimedJob
         {
             get

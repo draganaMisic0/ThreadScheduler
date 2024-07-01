@@ -32,7 +32,13 @@ namespace OPOS_project
                 if (myJob.State == State.Stopped)
                 {
                     scheduler.StopJob(myJob);
-                    this.progressBar.Value = 0;
+                    //this.progressBar.Value = 0;
+                    playButton.Visibility = Visibility.Hidden;
+                    pauseButton.Visibility = Visibility.Hidden;
+                    stopButton.Visibility = Visibility.Hidden;
+                    messageLabel.Visibility = Visibility.Visible;
+                    progressBar.Value = 0;
+                    messageLabel.Content = "Job stoppped!";
                     return;
                 }
 
@@ -108,12 +114,7 @@ namespace OPOS_project
                     return;
                 }
                 scheduler.StopJob(myJob);
-                playButton.Visibility = Visibility.Hidden;
-                pauseButton.Visibility = Visibility.Hidden;
-                stopButton.Visibility = Visibility.Hidden;
-                messageLabel.Visibility = Visibility.Visible;
-                progressBar.Value = 0;
-                messageLabel.Content = "Job stoppped!";
+                
             }
         }
     }
