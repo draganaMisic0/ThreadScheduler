@@ -18,38 +18,24 @@ using System.Windows.Shapes;
 
 namespace OPOS_project
 {
-    /// <summary>
-    /// Interaction logic for NewWindow.xaml
-    /// </summary>
+  
     public partial class NewWindow : Window
     {
-        static List<TaskPlayerControl> tpcList = new List<TaskPlayerControl>();
-        //Moze ovdje i List<job> gdje ces cuvati sve kreirane jobove (tipa BlurImageJob, SharpenImageJob...)
+        //static List<TaskPlayerControl> tpcList = new List<TaskPlayerControl>();
+
         public NewWindow()
         {
             InitializeComponent();
-            //ovdje kreirati factory objekat
 
             this.ResizeMode = ResizeMode.CanMinimize;
-            foreach (JobCreationElements currentElement in MainWindow.getListOfJobs()) { 
-                
-                TaskPlayerControl tpc=new TaskPlayerControl(Scheduler.Scheduler.getInstance().Schedule(currentElement));
-
-
-                
+            foreach (JobCreationElements currentElement in MainWindow.getListOfJobs())
+            { 
+                TaskPlayerControl tpc = new TaskPlayerControl(Scheduler.Scheduler.getInstance().Schedule(currentElement));
                 tpc.Tag = currentElement;
-                    tpc.jobName.Content = currentElement.Name;
-                    stackPanel.Children.Add(tpc);
-                    tpcList.Add(tpc);
-
-                
-
+                tpc.jobName.Content = currentElement.Name;
+                stackPanel.Children.Add(tpc);
+                //tpcList.Add(tpc);
             }
         }
-       
-      
-
-
-
     }
 }

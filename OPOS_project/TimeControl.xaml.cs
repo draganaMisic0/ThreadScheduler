@@ -15,9 +15,7 @@ using System.Windows.Shapes;
 
 namespace OPOS_project
 {
-    /// <summary>
-    /// Interaction logic for TimeControl.xaml
-    /// </summary>
+  
     public partial class TimeControl : UserControl
     {
 
@@ -26,12 +24,6 @@ namespace OPOS_project
             InitializeComponent();
         }
 
-        #region Properties
-
-        /// <summary>
-        /// Gets or sets the date time value.
-        /// </summary>
-        /// <value>The date time value.</value>
         public DateTime? DateTimeValue
         {
             get
@@ -57,13 +49,8 @@ namespace OPOS_project
                 DateTime? time = value;
                 if (time.HasValue)
                 {
-                    string timeString=time.Value.TimeOfDay.ToString();
-
-                    //string timeString = time.Value.ToString("HH:mm:ss");
-
-                    // string timeString = time.Value.ToShortTimeString();
-                    //9:54 AM
-                    string[] values = timeString.Split(':', ' ');
+                    string timeString = time.Value.TimeOfDay.ToString();
+                    string[] values = timeString.Split(':', ' '); 
                     if (values.Length == 3)
                     {
                         this.txtHours.Text = values[0];
@@ -77,10 +64,6 @@ namespace OPOS_project
 
             return DateTimeValue.Value.ToString("HH:mm:ss");
         }
-        /// <summary>
-        /// Gets or sets the time span value.
-        /// </summary>
-        /// <value>The time span value.</value>
         public TimeSpan? TimeSpanValue
         {
             get
@@ -104,16 +87,6 @@ namespace OPOS_project
                 }
             }
         }
-
-        #endregion
-
-        #region Event Subscriptions
-
-        /// <summary>
-        /// Handles the Click event of the btnDown control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         private void btnDown_Click(object sender, RoutedEventArgs e)
         {
             string controlId = this.GetControlWithFocus().Name;
@@ -131,11 +104,6 @@ namespace OPOS_project
             }
         }
 
-        /// <summary>
-        /// Handles the Click event of the btnUp control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.RoutedEventArgs"/> instance containing the event data.</param>
         private void btnUp_Click(object sender, RoutedEventArgs e)
         {
             string controlId = this.GetControlWithFocus().Name;
@@ -153,25 +121,13 @@ namespace OPOS_project
             }
         }
 
-        /// <summary>
-        /// Handles the PreviewTextInput event of the txtSeconds control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.TextCompositionEventArgs"/> instance containing the event data.</param>
         private void txtSeconds_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            // prevent users to type text
             e.Handled = true;
         }
 
-        /// <summary>
-        /// Handles the KeyUp event of the txt control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
         private void txt_KeyUp(object sender, KeyEventArgs e)
         {
-            // check for up and down keyboard presses
             if (Key.Up.Equals(e.Key))
             {
                 btnUp_Click(this, null);
@@ -182,11 +138,6 @@ namespace OPOS_project
             }
         }
 
-        /// <summary>
-        /// Handles the MouseWheel event of the txt control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.MouseWheelEventArgs"/> instance containing the event data.</param>
         private void txt_MouseWheel(object sender, MouseWheelEventArgs e)
         {
             if (e.Delta > 0)
@@ -199,24 +150,15 @@ namespace OPOS_project
             }
         }
 
-        /// <summary>
-        /// Handles the PreviewKeyUp event of the txt control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
         private void txt_PreviewKeyUp(object sender, KeyEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
-            // make sure all characters are number
             bool allNumbers = textBox.Text.All(Char.IsNumber);
             if (!allNumbers)
             {
                 e.Handled = true;
                 return;
             }
-
-
-            // make sure user did not enter values out of range
             int value;
             int.TryParse(textBox.Text, out value);
             if ("txtHours".Equals(textBox.Name) && value > 23)
@@ -233,14 +175,6 @@ namespace OPOS_project
             }
         }
 
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Changes the hours.
-        /// </summary>
-        /// <param name="isUp">if set to <c>true</c> [is up].</param>
         private void ChangeHours(bool isUp)
         {
             int value = Convert.ToInt32(this.txtHours.Text);
@@ -263,10 +197,6 @@ namespace OPOS_project
             this.txtHours.Text = Convert.ToString(value);
         }
 
-        /// <summary>
-        /// Changes the minutes.
-        /// </summary>
-        /// <param name="isUp">if set to <c>true</c> [is up].</param>
         private void ChangeMinutes(bool isUp)
         {
             int value = Convert.ToInt32(this.txtMinutes.Text);
@@ -321,12 +251,7 @@ namespace OPOS_project
             }
             this.txtSeconds.Text = textValue;
         }
-        /// <summary>
-        /// Enforces the limits.
-        /// </summary>
-        /// <param name="e">The <see cref="System.Windows.Input.KeyEventArgs"/> instance containing the event data.</param>
-        /// <param name="textBox">The text box.</param>
-        /// <param name="enteredValue">The entered value.</param>
+      
         private static void EnforceLimits(KeyEventArgs e, TextBox textBox)
         {
             string enteredValue = GetEnteredValue(e.Key);
@@ -339,10 +264,6 @@ namespace OPOS_project
             e.Handled = true;
         }
 
-        /// <summary>
-        /// Gets the control with focus.
-        /// </summary>
-        /// <returns></returns>
         private TextBox GetControlWithFocus()
         {
             TextBox txt = new TextBox();
@@ -361,11 +282,6 @@ namespace OPOS_project
             return txt;
         }
 
-        /// <summary>
-        /// Gets the entered value.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
         private static string GetEnteredValue(Key key)
         {
             string value = string.Empty;
@@ -415,27 +331,6 @@ namespace OPOS_project
             return value;
         }
 
-        /// <summary>
-        /// Toggles the am pm.
-        /// </summary>
-        /* private void ToggleAmPm()
-         {
-             if ("AM".Equals(this.txtSeconds.Text))
-             {
-                 this.txtSeconds.Text = "PM";
-             }
-             else
-             {
-                 this.txtSeconds.Text = "AM";
-             }
-         }*/
-
-        #endregion
-
-
-        // Your existing methods and event handlers...
-
-        // Example event handler for when the minutes textbox changes
         public void ClearValues()
         {
             this.txtHours.Text = "00";

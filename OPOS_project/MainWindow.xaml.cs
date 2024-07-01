@@ -19,9 +19,7 @@ using System.IO;
 
 namespace OPOS_project
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+ 
     public partial class MainWindow : Window {
 
 
@@ -38,7 +36,7 @@ namespace OPOS_project
         private Bitmap? selectedBitmap = null;
         private int? selectedTotalExecutionTime = null;
         public static List<JobCreationElements> listOfJobs = new List<JobCreationElements>();
-       // public static TextBox ? testTextBox { get; }
+     
         public MainWindow()
         {
             InitializeComponent();
@@ -58,17 +56,12 @@ namespace OPOS_project
         {
             // Your event handler logic here
         }
+
         public static List<JobCreationElements> getListOfJobs() {
             
             return listOfJobs;
         }
-        
-        private void ComboBox_SelectionChanged(object sender, EventArgs e)
-        {
-            // comboBoxSelectJob.Visibility = Visibility.Visible;
-        }
-      
-        private void ComboBox_DropDownOpened(object sender, System.EventArgs e) //vjerovatno ni ne treba
+         private void ComboBox_DropDownOpened(object sender, System.EventArgs e) //vjerovatno ni ne treba
         {
             
             
@@ -89,22 +82,17 @@ namespace OPOS_project
 
         private void UploadButton_Click(object sender, RoutedEventArgs e)
         {
-           
-                // Create OpenFileDialog
+
                 Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
 
-                // Set filter for file extension and default file extension
-                openFileDialog.Filter = "Image Files (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif|All files (*.*)|*.*";
+                openFileDialog.Filter = "Image s (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif|All files (*.*)|*.*";
 
-                // Display OpenFileDialog by calling ShowDialog method
                 bool? result = openFileDialog.ShowDialog();
 
-                // Check if a file was selected
                 if (result == true)
                 {
-                    try
-                    {
-                        // Get the selected file name and display in a TextBox
+                try { 
+                    
                         string selectedFileName = openFileDialog.FileName;
                         imagePath.Content=selectedFileName;
                         selectedBitmap=new Bitmap(selectedFileName);
@@ -114,7 +102,7 @@ namespace OPOS_project
                         Source = bitmapImage
                     };
                     testImage.Source = selectedImage.Source;
-                    selectedBitmap.Save("C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\file\\image.png", ImageFormat.Png);
+                   
 
                     // Perform your upload action here, such as saving the file or sending it to a server
                     // For example:
@@ -132,8 +120,10 @@ namespace OPOS_project
         }
 
      
-        private void startJobsButton_Click(object sender, RoutedEventArgs e)
+        private async void startJobsButton_Click(object sender, RoutedEventArgs e)
         {
+           fillWithTestData();
+            
             NewWindow newWindow = new NewWindow();
            
             newWindow.Show();
@@ -208,7 +198,6 @@ namespace OPOS_project
         }
         private void addJobButton_Click(object sender, RoutedEventArgs e)
         {
-            
             if (isTimedJob.IsChecked == true)
             {
                 if (CheckDateAndTimeInputs())
@@ -276,6 +265,34 @@ namespace OPOS_project
         private void CheckBoxIsTimedJob_Unchecked(object sender, RoutedEventArgs e)
         {
             blurRectangle.Visibility = Visibility.Visible;
+        }
+        private void fillWithTestData()
+        {
+            string bitmapPath = @"../../../Resources/city.png";
+
+            if (!File.Exists(bitmapPath))
+            {
+                Console.WriteLine("Bitmap file not found: " + bitmapPath);
+                return;
+            }
+
+            listOfJobs.Add(new JobCreationElements(
+                $"Blur_1", 
+                (JobType?)JobType.Blur,
+                (Bitmap?)new Bitmap(bitmapPath),
+                (DateTime.Now).AddSeconds(3), 
+                (DateTime.Now).AddMinutes(1), 
+                10));
+            listOfJobs.Add(new JobCreationElements($"Blur_2",
+                        JobType.Blur, new Bitmap(bitmapPath)));
+
+            listOfJobs.Add(new JobCreationElements($"Blur_3",
+                        JobType.Blur, new Bitmap(bitmapPath), (DateTime?)(DateTime.Now).AddSeconds(5), (DateTime?)(DateTime.Now).AddMinutes(1), 10));
+
+            listOfJobs.Add(new JobCreationElements($"Blur_4",
+                       JobType.Blur, new Bitmap(bitmapPath)));
+            listOfJobs.Add(new JobCreationElements($"Blur_3",
+                        JobType.Blur, new Bitmap(bitmapPath), (DateTime?)(DateTime.Now).AddSeconds(7), (DateTime?)(DateTime.Now).AddMinutes(1), 10));
         }
     }
 }

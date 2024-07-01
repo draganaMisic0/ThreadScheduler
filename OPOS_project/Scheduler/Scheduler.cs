@@ -27,6 +27,7 @@ namespace OPOS_project.Scheduler
             this.maxNumOfRunningJobs = maxNumRunningJobs;
             startQueueChecker();
             
+            
         }
         public Job Schedule(JobCreationElements jobElements)
         {
@@ -62,52 +63,76 @@ namespace OPOS_project.Scheduler
             {
                 // If the start time has already passed, start the job immediately
                 StartJob(newJob);
-                newJob.calculateExecutionTime();
-                checkPassedTime(newJob);
+                //newJob.calculateExecutionTime();
+                //checkPassedTime(newJob);
                 
             }
             else
             {
-                // Otherwise, enqueue the job with the delay as priority
-                waitingJobs.Enqueue(newJob, ts.Milliseconds);
+                lock (_lock)
+                {
+                    waitingJobs.Enqueue(newJob, ts.Milliseconds);
+                    Console.WriteLine($"Enqurd {newJob.myJobElements.Name}");
+                }
             }
         }
 
         Timer timer = null;
         private void startQueueChecker()
         {
-            if(timer == null)
-            {
-                timer = new Timer(CheckQueue, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
-            }
+            Task.Run(() => {
+                if (timer == null)
+                {
+                    timer = new Timer(CheckQueue, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+                }
+            });
+            
         }
 
-        private void CheckQueue(object state)
+        private async void CheckQueue(object state)
         {
-            Console.WriteLine("ulazi u check");
-            
+          Console.WriteLine($"Dequeued:");
+
+
+            lock (_lock)
+            {
                 
-                    waitingJobs.TryDequeue(out Job foundJob, out int priority);
+                if (waitingJobs.TryDequeue(out Job foundJob, out int priority))
+                {
                     if (foundJob != null) //ako je nesto skinuto iz reda
                     {
-                        if(DateTime.Now >= foundJob.myJobElements.StartDateAndTime)
+                        Console.WriteLine($"Dequeued: {foundJob.myJobElements.Name}");
+                        if (DateTime.Now >= foundJob.myJobElements.StartDateAndTime)
                         {
-                            StartJob(foundJob);
-                            foundJob.calculateExecutionTime();
-                            checkPassedTime(foundJob);
-                    if (waitingJobs.Count == 0)
+                            if(currentNumOfRunningJobs < maxNumOfRunningJobs)
                             {
-                                timer.Dispose();
+                            StartJob(foundJob);
                             }
-                        }
-                        else
-                        {
+                            else
+                            {
                                 DateTime startTime = (DateTime)foundJob.myJobElements.StartDateAndTime;
                                 TimeSpan ts = startTime - DateTime.Now;
                                 waitingJobs.Enqueue(foundJob, ts.Milliseconds);
-                        
+                            }
+
+                            //  timer.Dispose();
+
+                        }
+                        else
+                        {
+                            DateTime startTime = (DateTime)foundJob.myJobElements.StartDateAndTime;
+                            TimeSpan ts = startTime - DateTime.Now;
+
+                            waitingJobs.Enqueue(foundJob, ts.Milliseconds);
+
                         }
                     }
+                }
+                else
+                {
+                     timer.Dispose();
+                }
+            }
         }
 
 
@@ -122,8 +147,8 @@ namespace OPOS_project.Scheduler
                     {
                         Console.WriteLine("hoce da ga startuje iz schedulera");
                         newJob.Start();
-                        newJob.calculateExecutionTime();
-                        checkPassedTime(newJob);
+                        //newJob.calculateExecutionTime();
+                        //checkPassedTime(newJob);
                         currentNumOfRunningJobs++;
 
                     }
@@ -155,25 +180,30 @@ namespace OPOS_project.Scheduler
                         Console.WriteLine("hoce da ga resumuje iz schedulera");
                         newJob.Resume();
                         
-                        newJob.calculateExecutionTime();
-                        checkPassedTime(newJob);
+                        //newJob.calculateExecutionTime();
+                        //checkPassedTime(newJob);
                         currentNumOfRunningJobs++;
                     }
                     else
                     {
-                        waitingJobs.Enqueue(newJob, newJob.Priority);
-                        Console.WriteLine("u nekom drugom je stanju a nePaused ");
+                        TimeSpan ts = (DateTime)(newJob.myJobElements.StartDateAndTime) - DateTime.Now;
+                        
+                            waitingJobs.Enqueue(newJob, ts.Milliseconds);
+                        
+                        Console.WriteLine("u nekom drugom je stanju a ne Paused ");
                     }
                 }
                 else
                 {
-                    waitingJobs.Enqueue(newJob, newJob.Priority);
+                    TimeSpan ts = DateTime.Now - (DateTime)(newJob.myJobElements.StartDateAndTime) ;
+
+                    waitingJobs.Enqueue(newJob, ts.Milliseconds);
 
                     Console.WriteLine("nema slobodnih tredova za start");
                 }
             }
         }
-        public async void checkPassedTime(Job job)
+        public void checkPassedTime(Job job)
         {
             while (job.State == State.Running && job.IsTimedJob)
             {
@@ -206,6 +236,10 @@ namespace OPOS_project.Scheduler
                 {
                     newJob.Stop();
                     currentNumOfRunningJobs--;
+                    if (newJob.IsTimedJob)
+                    {
+                        timedJobCount--;
+                    }
                 }
                 else if (newJob.State == State.NotStarted || newJob.State == State.Paused)
                 {
@@ -229,7 +263,7 @@ namespace OPOS_project.Scheduler
                 else if (currentNumOfRunningJobs < maxNumOfRunningJobs)
                 {
                     //currentNumOfRunningJobs++;
-                    newJob.Resume();
+                    ResumeJob(newJob);
                 }
                 else
                 {
@@ -258,6 +292,7 @@ namespace OPOS_project.Scheduler
             lock (_lock)
             {
                 currentNumOfRunningJobs--;
+                
                 Console.WriteLine("job finished " + currentNumOfRunningJobs);
             }
         }

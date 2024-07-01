@@ -19,9 +19,7 @@ using System.IO;
 
 namespace OPOS_project
 {
-    /// <summary>
-    /// Interaction logic for TaskPlayerControl.xaml
-    /// </summary>
+    
     public partial class TaskPlayerControl : UserControl
     {
 
@@ -57,7 +55,7 @@ namespace OPOS_project
                 playButton.Visibility = Visibility.Hidden;
                 pauseButton.Visibility = Visibility.Hidden;
                 stopButton.Content = "Show Result";
-                stopButton.Width = 93; //Pause button width + gap + stop button width
+                stopButton.Width = 93; 
                 messageLabel.Visibility = Visibility.Visible;
                 messageLabel.Content = "Job finished!";
                 stopButton.Margin = pauseButton.Margin;
@@ -66,20 +64,19 @@ namespace OPOS_project
             }
         }
     
-        private async void playButton_Click(object sender, RoutedEventArgs e)
+        private void playButton_Click(object sender, RoutedEventArgs e)
         {
             if (sender is Button button && this.Tag is JobCreationElements myJobCreationElements)
             {
-                //ovdje tag treba da bude tipa Job
+                
                 Console.WriteLine("u play button");
                 if (myJob != null)
                 {
                     Console.WriteLine("ulazi u job nije null");
 
-                    if (myJob.State == State.Paused) //Ovo je slucaj kada je Resume button
+                    if (myJob.State == State.Paused) 
                     {
                         scheduler.ResumeJob(myJob);
-                        
 
                     }
                     else
@@ -88,12 +85,9 @@ namespace OPOS_project
                         playButton.Content = "Resume";
                     }
 
-                    //updateProgressBar();
-                    
-
                 }
 
-                else  //ako nije kreiran posao, kreira se i scheduluje
+                else  
                 {
                     Console.WriteLine("scheduluje job");
                     myJob = scheduler.Schedule(myJobCreationElements);
@@ -118,7 +112,7 @@ namespace OPOS_project
             {
                 if (myJob.State.Equals(State.Finished))
                 {
-                    string relativePath = Job.RESULT_FILE_PATH + $"/{myJobElements.Name}.png"; // Adjust the relative path as needed
+                    string relativePath = Job.RESULT_FILE_PATH + $"/{myJobElements.Name}.png"; 
                     string absolutePath = System.IO.Path.GetFullPath(relativePath);
                     
                     Console.WriteLine(absolutePath);
