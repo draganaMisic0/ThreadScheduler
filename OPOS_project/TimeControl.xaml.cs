@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace OPOS_project
 {
-  
+
     public partial class TimeControl : UserControl
     {
 
@@ -50,7 +39,7 @@ namespace OPOS_project
                 if (time.HasValue)
                 {
                     string timeString = time.Value.TimeOfDay.ToString();
-                    string[] values = timeString.Split(':', ' '); 
+                    string[] values = timeString.Split(':', ' ');
                     if (values.Length == 3)
                     {
                         this.txtHours.Text = values[0];
@@ -60,7 +49,8 @@ namespace OPOS_project
                 }
             }
         }
-        public string printSelectedTimeString() {
+        public string printSelectedTimeString()
+        {
 
             return DateTimeValue.Value.ToString("HH:mm:ss");
         }
@@ -251,7 +241,7 @@ namespace OPOS_project
             }
             this.txtSeconds.Text = textValue;
         }
-      
+
         private static void EnforceLimits(KeyEventArgs e, TextBox textBox)
         {
             string enteredValue = GetEnteredValue(e.Key);
@@ -340,5 +330,5 @@ namespace OPOS_project
 
 
     }
-   
+
 }

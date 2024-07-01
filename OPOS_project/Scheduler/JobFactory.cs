@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OPOS_project.Specific_jobs;
+﻿using OPOS_project.Specific_jobs;
 
 namespace OPOS_project.Scheduler
 {
     internal class JobFactory
     {
 
-        public static Job createJob(JobCreationElements jobElements, int priority = 1) 
+        public static Job createJob(JobCreationElements jobElements, int priority = 1)
         {
 
             if (jobElements.JobType == JobType.Blur)

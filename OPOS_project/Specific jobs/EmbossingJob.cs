@@ -1,23 +1,18 @@
 ﻿using OPOS_project.Scheduler;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OPOS_project.Specific_jobs
 {
-    internal class EmbossingJob:Job
+    internal class EmbossingJob : Job
     {
         public EmbossingJob(JobCreationElements elements, int priority) : base(elements, priority) { }
-       /* public override void RunThisJob()
-        {
-            throw new NotImplementedException();
-        }*/
+        /* public override void RunThisJob()
+         {
+             throw new NotImplementedException();
+         }*/
 
-        public override void RunThisJob ()
+        public override void RunThisJob()
         {
             int totalSteps = myJobElements.Image.Width * myJobElements.Image.Height * 2;
             int processedSteps = 0;
@@ -32,7 +27,7 @@ namespace OPOS_project.Specific_jobs
         };
 
             // Apply embossing convolution
-            Bitmap embossedImage = ApplyConvolution(grayscaleImage, embossKernel, ref processedSteps,totalSteps);
+            Bitmap embossedImage = ApplyConvolution(grayscaleImage, embossKernel, ref processedSteps, totalSteps);
 
             this.Finish();
             string name = @"\" + myJobElements.Name + ".png";

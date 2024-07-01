@@ -1,21 +1,16 @@
 ﻿using OPOS_project.Scheduler;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OPOS_project.Specific_jobs
 {
-    internal class SharpenImageJob:Job
+    internal class SharpenImageJob : Job
     {
-        public SharpenImageJob(JobCreationElements elements, int priority): base(elements, priority) { }
-      /*  public override void RunThisJob()
-        {
-            throw new NotImplementedException();
-        }*/
+        public SharpenImageJob(JobCreationElements elements, int priority) : base(elements, priority) { }
+        /*  public override void RunThisJob()
+          {
+              throw new NotImplementedException();
+          }*/
         public override void RunThisJob()
         {
             Bitmap sharpened = new Bitmap(myJobElements.Image.Width, myJobElements.Image.Height);

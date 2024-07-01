@@ -44,10 +44,9 @@
             </local:TimeControl.RenderTransform>
         </local:TimeControl>
         <Button x:Name="uploadButton" Content="Upload Image" Click="UploadButton_Click" Margin="367,96,0,0" HorizontalAlignment="Left" Width="90" VerticalAlignment="Top" Height="37" FontSize="14"/>
-        <TextBox  x:Name="testTextBox" HorizontalAlignment="Left" Margin="0,27,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" Height="131" Grid.Column="1"/>
         <Button x:Name="startJobsButton" Grid.Column="1" Content="Start jobs" HorizontalAlignment="Left" Margin="249,528,0,0" VerticalAlignment="Top" Height="50" Width="128" Click="startJobsButton_Click" FontSize="18"/>
-        <Label x:Name="imagePath" Content="" HorizontalAlignment="Left" Margin="54,152,0,0" VerticalAlignment="Top" Width="362" Height="36" FontSize="16"/>
-        <Image x:Name="testImage" Grid.Column="1" HorizontalAlignment="Left" Height="170" Margin="192,27,0,0" VerticalAlignment="Top" Width="228" RenderTransformOrigin="0.502,0.475"/>
+        <Label x:Name="imagePath" Content="" HorizontalAlignment="Left" Margin="54,152,0,0" VerticalAlignment="Top" Width="553" Height="36" Grid.ColumnSpan="2"/>
+        <Image x:Name="testImage" Grid.Column="1" HorizontalAlignment="Left" Height="162" Margin="170,27,0,0" VerticalAlignment="Top" Width="219" RenderTransformOrigin="0.502,0.475"/>
         <CheckBox x:Name="isTimedJob" Content="Schedule time" HorizontalAlignment="Left" Height="36" Margin="52,198,0,0" VerticalAlignment="Top" Width="253" FontSize="18" Checked="checkBoxIsTimedJob_Checked" Unchecked="CheckBoxIsTimedJob_Unchecked" BorderThickness="1,1,1,1" RenderTransformOrigin="0.5,0.5">
         </CheckBox>
 
