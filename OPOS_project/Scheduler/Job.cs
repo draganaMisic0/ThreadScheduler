@@ -16,8 +16,6 @@
         private ManualResetEventSlim pauseEvent = new ManualResetEventSlim(false);
         private State state = State.NotStarted;
         public int Progress { get; protected set; } = 0;
-        //public string Name { get; set; } = "Job";
-
         private readonly object stateLock = new();
         public JobCreationElements myJobElements { get; private set; }
 
@@ -69,7 +67,6 @@
                     case State.NotStarted:
                         state = State.Running;
                         OnResumeRequested(this);
-
                         break;
 
                     case State.Running:
@@ -91,7 +88,6 @@
 
         internal void Pause()
         {
-            Console.WriteLine(State.ToString());
             lock (stateLock)
             {
                 switch (state)
@@ -113,7 +109,6 @@
                         throw new InvalidOperationException("Job cannot be paused after finishing.");
                 }
             }
-            Console.WriteLine("Posao je pauziran");
         }
 
         internal void Resume()
@@ -126,17 +121,11 @@
                         throw new InvalidOperationException("Job cannot be resumed before starting.");
                     case State.Running:
                         break;
-
                     case State.Paused:
-
                         state = State.Running;
                         OnResumeRequested(this);
                         pauseEvent.Set();
-
-                        Console.WriteLine(this.state);
-                        Console.WriteLine("pulsirano");
                         break;
-
                     case State.Stopped:
                         throw new InvalidOperationException("Job cannot be resumed after being stopped.");
                     case State.Finished:
@@ -186,20 +175,10 @@
                         this.state = State.Finished;
                         OnFinished();
                         break;
-                    //case JobState.RunningWithPauseRequest:
-                    /* case JobState.RunningWithStopRequest:
-                         state = JobState.Finished;
-                         OnFinished();
-                         break;
-                    */
                     case State.Paused:
                         throw new InvalidOperationException("Job cannot finish while paused.");
-                    /*case JobState.WaitingToResume:
-                        throw new InvalidOperationException("Job cannot finish while in waiting state.");
-                    */
                     case State.Stopped:
                         break;
-
                     case State.Finished:
                         return;
                 }
@@ -214,20 +193,17 @@
                     throw new InvalidOperationException("Cannot check the state before starting the job");
                 case State.Running:
                     break;
-
                 case State.Paused:
-                    OnPaused();
+                   // OnPaused();
                     while (state == State.Paused)
                     {
                         pauseEvent.Wait();
                     }
                     break;
-
                 case State.Stopped:
                     state = State.Stopped;
-                    OnStopped();
+                   // OnStopped();
                     break;
-
                 case State.Finished:
                     throw new InvalidOperationException("Cannot check the state after finishing the job");
             }

@@ -6,11 +6,15 @@ namespace OPOS_project.Specific_jobs
 {
     internal class SharpenImageJob : Job
     {
-        public SharpenImageJob(JobCreationElements elements, int priority) : base(elements, priority) { }
+        public SharpenImageJob(JobCreationElements elements, int priority) : base(elements, priority)
+        {
+        }
+
         /*  public override void RunThisJob()
           {
               throw new NotImplementedException();
           }*/
+
         public override void RunThisJob()
         {
             Bitmap sharpened = new Bitmap(myJobElements.Image.Width, myJobElements.Image.Height);

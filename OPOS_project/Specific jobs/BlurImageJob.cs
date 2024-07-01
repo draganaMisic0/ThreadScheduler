@@ -1,23 +1,25 @@
 ﻿using OPOS_project.Scheduler;
 using System.Drawing;
 using System.Drawing.Imaging;
+
 namespace OPOS_project.Specific_jobs
 {
     internal class BlurImageJob : Job
     {
         public string Path { get; init; } = "Blur";
 
-
         // BitmapImage image=new BitmapImage();
         /* public override void RunThisJob()
          {
              throw new NotImplementedException();
          }*/
-        public BlurImageJob(JobCreationElements elements, int priority) : base(elements, priority) { }
+
+        public BlurImageJob(JobCreationElements elements, int priority) : base(elements, priority)
+        {
+        }
 
         public override void RunThisJob()
         {
-
             int blurSize = 7;
             int totalPixels = this.myJobElements.Image.Width * this.myJobElements.Image.Height;
 
@@ -71,9 +73,5 @@ namespace OPOS_project.Specific_jobs
             string name = @"\" + myJobElements.Name + ".png";
             blurred.Save(RESULT_FILE_PATH + name, ImageFormat.Png);
         }
-
-
-
     }
-
 }

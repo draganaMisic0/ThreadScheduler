@@ -57,10 +57,8 @@ namespace OPOS_project
         {
             if (sender is Button button && this.Tag is JobCreationElements myJobCreationElements)
             {
-                Console.WriteLine("u play button");
-                if (myJob != null)
+                if (myJob != null) //if myJob is already scheduled
                 {
-                    Console.WriteLine("ulazi u job nije null");
 
                     if (myJob.State == State.Paused)
                     {
@@ -72,9 +70,8 @@ namespace OPOS_project
                         playButton.Content = "Resume";
                     }
                 }
-                else
+                else   //if it was never scheduled
                 {
-                    Console.WriteLine("scheduluje job");
                     myJob = scheduler.Schedule(myJobCreationElements);
                 }
             }
@@ -82,7 +79,7 @@ namespace OPOS_project
 
         private void pauseButtton_Click(object sender, object e)
         {
-            if (sender is Button button && this.Tag is JobCreationElements myJobElements)
+            if (sender is Button button && this.Tag is JobCreationElements)
             {
                 scheduler.PauseJob(myJob);
                 if (myJob.IsTimedJob && State.Paused.Equals(myJob.State))
@@ -102,7 +99,6 @@ namespace OPOS_project
                     string relativePath = Job.RESULT_FILE_PATH + $"/{myJobElements.Name}.png";
                     string absolutePath = System.IO.Path.GetFullPath(relativePath);
 
-                    Console.WriteLine(absolutePath);
                     ProcessStartInfo startInfo = new ProcessStartInfo(absolutePath)
                     {
                         UseShellExecute = true

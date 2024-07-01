@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="OPOS_project.TimeControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" Width="512" Height="50">
     <Border BorderBrush="LightBlue" BorderThickness="1" Margin="1,0,27,1">
         <Grid RenderTransformOrigin="0.54,0.482" Margin="-1,0,-27,0">
@@ -10,7 +10,7 @@
                 <ColumnDefinition Width="121*" />
                 <ColumnDefinition Width="9" />
                 <ColumnDefinition Width="117*" />
-                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="5*" />
                 <ColumnDefinition Width="18*" />
                 <ColumnDefinition Width="240*" />
             </Grid.ColumnDefinitions>
@@ -29,13 +29,13 @@
                     <TextBlock Text="p" FontFamily="Wingdings 3" HorizontalAlignment="Center" VerticalAlignment="Center" />
                 </Button>
                 <Button x:Name="btnDown" Grid.Row="1" Focusable="False" Click="btnDown_Click" Margin="50,0,-10,-1">
-                    <TextBlock Text="q" FontFamily="Wingdings 3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="10" RenderTransformOrigin="0.5,0.5" Width="12" >
+                    <TextBlock Text="q" FontFamily="Wingdings 3" HorizontalAlignment="Left" VerticalAlignment="Center" Height="10" RenderTransformOrigin="0.5,0.5" Width="12">
                         <TextBlock.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform ScaleX="-1"/>
-                                <SkewTransform/>
-                                <RotateTransform/>
-                                <TranslateTransform/>
+                                <ScaleTransform ScaleX="-1" />
+                                <SkewTransform />
+                                <RotateTransform />
+                                <TranslateTransform />
                             </TransformGroup>
                         </TextBlock.RenderTransform>
                     </TextBlock>

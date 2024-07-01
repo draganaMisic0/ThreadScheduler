@@ -3,11 +3,9 @@ using System.Windows;
 
 namespace OPOS_project
 {
-
     public partial class NewWindow : Window
     {
-        //static List<TaskPlayerControl> tpcList = new List<TaskPlayerControl>();
-
+       
         public NewWindow()
         {
             InitializeComponent();
@@ -20,7 +18,6 @@ namespace OPOS_project
                 tpc.jobName.Content = currentElement.Name;
                 stackPanel.Children.Add(tpc);
 
-                //tpcList.Add(tpc);
             }
         }
     }

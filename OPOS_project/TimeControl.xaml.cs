@@ -4,10 +4,8 @@ using System.Windows.Input;
 
 namespace OPOS_project
 {
-
     public partial class TimeControl : UserControl
     {
-
         public TimeControl()
         {
             InitializeComponent();
@@ -49,11 +47,12 @@ namespace OPOS_project
                 }
             }
         }
+
         public string printSelectedTimeString()
         {
-
             return DateTimeValue.Value.ToString("HH:mm:ss");
         }
+
         public TimeSpan? TimeSpanValue
         {
             get
@@ -77,6 +76,7 @@ namespace OPOS_project
                 }
             }
         }
+
         private void btnDown_Click(object sender, RoutedEventArgs e)
         {
             string controlId = this.GetControlWithFocus().Name;
@@ -214,6 +214,7 @@ namespace OPOS_project
             }
             this.txtMinutes.Text = textValue;
         }
+
         private void ChangeSeconds(bool isUp)
         {
             int value = Convert.ToInt32(this.txtSeconds.Text);
@@ -281,38 +282,47 @@ namespace OPOS_project
                 case Key.NumPad0:
                     value = "0";
                     break;
+
                 case Key.D1:
                 case Key.NumPad1:
                     value = "1";
                     break;
+
                 case Key.D2:
                 case Key.NumPad2:
                     value = "2";
                     break;
+
                 case Key.D3:
                 case Key.NumPad3:
                     value = "3";
                     break;
+
                 case Key.D4:
                 case Key.NumPad4:
                     value = "4";
                     break;
+
                 case Key.D5:
                 case Key.NumPad5:
                     value = "5";
                     break;
+
                 case Key.D6:
                 case Key.NumPad6:
                     value = "6";
                     break;
+
                 case Key.D7:
                 case Key.NumPad7:
                     value = "7";
                     break;
+
                 case Key.D8:
                 case Key.NumPad8:
                     value = "8";
                     break;
+
                 case Key.D9:
                 case Key.NumPad9:
                     value = "9";
@@ -327,8 +337,5 @@ namespace OPOS_project
             this.txtMinutes.Text = "00";
             this.txtSeconds.Text = "00";
         }
-
-
     }
-
 }

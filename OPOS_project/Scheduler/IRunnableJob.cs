@@ -2,7 +2,7 @@
 {
     public interface IRunnableJob
     {
-        //public void IsJobInterrupted();
+
         public void RunThisJob();
     }
 }

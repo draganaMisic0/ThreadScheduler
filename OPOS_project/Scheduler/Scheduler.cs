@@ -7,34 +7,31 @@
         private readonly PriorityQueue<Job, int> waitingJobs = new PriorityQueue<Job, int>();
         private readonly int maxNumOfRunningJobs;
         private int currentNumOfRunningJobs = 0;
-        private int timedJobCount = 0;
+        //private int timedJobCount = 0;
         private readonly object _lock = new();
-        static private Scheduler instance = null;
-        static public Scheduler getInstance()
+        private static Scheduler instance = null;
+
+        public static Scheduler getInstance()
         {
             if (instance == null)
                 instance = new Scheduler(NUMBER_OF_THREADS);
             return instance;
         }
-        public Scheduler(int maxNumRunningJobs = 2)
+
+        private Scheduler(int maxNumRunningJobs = 2)
         {
             this.maxNumOfRunningJobs = maxNumRunningJobs;
             startQueueChecker();
-
-
         }
+
         public Job Schedule(JobCreationElements jobElements)
         {
             Job newJob = JobFactory.createJob(jobElements);
             newJob.OnFinished = HandleFinishedJob;
-            /*   newJob.OnPaused = HandlePausedJob;
-               newJob.OnStopped = HandleStoppedJob;
-               newJob.OnResumeRequested = HandleResumeRequest;
-            */
-
+          
             if (newJob.IsTimedJob)
             {
-                timedJobCount++;
+                //timedJobCount++;
                 ScheduleTimedJob(newJob);
             }
             else
@@ -42,12 +39,28 @@
                 Schedule(newJob);
             }
 
-
             return newJob;
-
         }
 
+        private void Schedule(Job newJob)
+        {
+            lock (_lock)
+            {
+                if (newJob.State == State.NotStarted)
+                {
+                    return;
+                }
+                else if (newJob.State == State.Finished)
+                {
+                    currentNumOfRunningJobs--;
+                }
+                else if (currentNumOfRunningJobs < maxNumOfRunningJobs)
+                {
+                    ResumeJob(newJob);
+                }
 
+            }
+        }
         private void ScheduleTimedJob(Job newJob)
         {
             DateTime startTime = (DateTime)newJob.myJobElements.StartDateAndTime;
@@ -55,23 +68,19 @@
 
             if (ts.TotalMilliseconds < 0 && (currentNumOfRunningJobs < maxNumOfRunningJobs))
             {
-                // If the start time has already passed, start the job immediately
                 StartJob(newJob);
-                //newJob.calculateExecutionTime();
-                //checkPassedTime(newJob);
-
             }
             else
             {
                 lock (_lock)
                 {
                     waitingJobs.Enqueue(newJob, ts.Milliseconds);
-                    Console.WriteLine($"Enqurd {newJob.myJobElements.Name}");
                 }
             }
         }
 
-        Timer timer = null;
+        private Timer timer = null;
+
         private void startQueueChecker()
         {
             Task.Run(() =>
@@ -81,22 +90,17 @@
                     timer = new Timer(CheckQueue, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
                 }
             });
-
         }
 
         private async void CheckQueue(object state)
         {
-            Console.WriteLine($"Dequeued:");
-
 
             lock (_lock)
             {
-
-                if (waitingJobs.TryDequeue(out Job foundJob, out int priority))
+                if (waitingJobs.TryDequeue(out Job foundJob, out int priority)) //if there's job found in queue waiting
                 {
-                    if (foundJob != null) //ako je nesto skinuto iz reda
+                    if (foundJob != null) 
                     {
-                        Console.WriteLine($"Dequeued: {foundJob.myJobElements.Name}");
                         if (DateTime.Now >= foundJob.myJobElements.StartDateAndTime)
                         {
                             if (currentNumOfRunningJobs < maxNumOfRunningJobs)
@@ -106,12 +110,9 @@
                             else
                             {
                                 DateTime startTime = (DateTime)foundJob.myJobElements.StartDateAndTime;
-                                TimeSpan ts = startTime - DateTime.Now;
+                                TimeSpan ts = startTime - DateTime.Now;  
                                 waitingJobs.Enqueue(foundJob, ts.Milliseconds);
                             }
-
-                            //  timer.Dispose();
-
                         }
                         else
                         {
@@ -119,17 +120,15 @@
                             TimeSpan ts = startTime - DateTime.Now;
 
                             waitingJobs.Enqueue(foundJob, ts.Milliseconds);
-
                         }
                     }
                 }
                 else
                 {
-                    timer.Dispose();
+                    timer.Dispose();   //timer stops when there are no more jobs in queue
                 }
             }
         }
-
 
         public void StartJob(Job newJob)
         {
@@ -137,26 +136,20 @@
             {
                 if (currentNumOfRunningJobs < maxNumOfRunningJobs)
                 {
-                    Console.WriteLine("broj tredova dobar");
                     if (newJob.State == State.NotStarted)
                     {
-                        Console.WriteLine("hoce da ga startuje iz schedulera");
                         newJob.Start();
-                        //newJob.calculateExecutionTime();
-                        //checkPassedTime(newJob);
                         currentNumOfRunningJobs++;
-
                     }
                     else
                     {
-
-                        Console.WriteLine("u nekom drugom je stanju a ne NOTStarted");
+                        
+                        //Console.WriteLine("u nekom drugom je stanju a ne NOTStarted");
                     }
                 }
                 else
                 {
-
-                    Console.WriteLine("nema slobodnih tredova za start");
+                    //Console.WriteLine("nema slobodnih tredova za start");
                 }
             }
         }
@@ -165,39 +158,32 @@
         {
             lock (_lock)
             {
-                Console.WriteLine("broj tredova " + currentNumOfRunningJobs);
                 if (currentNumOfRunningJobs < maxNumOfRunningJobs)
                 {
-
-                    Console.WriteLine("broj tredova dobar");
                     if (newJob.State == State.Paused)
                     {
-                        Console.WriteLine("hoce da ga resumuje iz schedulera");
                         newJob.Resume();
 
-                        //newJob.calculateExecutionTime();
-                        //checkPassedTime(newJob);
                         currentNumOfRunningJobs++;
                     }
                     else
                     {
+                        //for all jobs
                         TimeSpan ts = (DateTime)(newJob.myJobElements.StartDateAndTime) - DateTime.Now;
+                        //waitingJobs.Enqueue(newJob, ts.Milliseconds);
 
-                        waitingJobs.Enqueue(newJob, ts.Milliseconds);
-
-                        Console.WriteLine("u nekom drugom je stanju a ne Paused ");
                     }
                 }
                 else
                 {
+                    
                     TimeSpan ts = DateTime.Now - (DateTime)(newJob.myJobElements.StartDateAndTime);
+                    //waitingJobs.Enqueue(newJob, ts.Milliseconds);
 
-                    waitingJobs.Enqueue(newJob, ts.Milliseconds);
-
-                    Console.WriteLine("nema slobodnih tredova za start");
                 }
             }
         }
+
         public void checkPassedTime(Job job)
         {
             while (job.State == State.Running && job.IsTimedJob)
@@ -208,6 +194,7 @@
                 }
             }
         }
+
         public void PauseJob(Job newJob)
         {
             lock (_lock)
@@ -223,6 +210,7 @@
                 }
             }
         }
+
         public void StopJob(Job newJob)
         {
             lock (_lock)
@@ -233,7 +221,7 @@
                     currentNumOfRunningJobs--;
                     if (newJob.IsTimedJob)
                     {
-                        timedJobCount--;
+                        //timedJobCount--;
                     }
                 }
                 else if (newJob.State == State.NotStarted || newJob.State == State.Paused)
@@ -242,63 +230,17 @@
                 }
             }
         }
-        private void Schedule(Job newJob)
-        {
-            lock (_lock)
-            {
-                if (newJob.State == State.NotStarted)
-                {
-                    //waitingJobs.Enqueue(newJob, newJob.Priority);
-                    return;
-                }
-                if (newJob.State == State.Finished)
-                {
-                    currentNumOfRunningJobs--;
-                }
-                else if (currentNumOfRunningJobs < maxNumOfRunningJobs)
-                {
-                    //currentNumOfRunningJobs++;
-                    ResumeJob(newJob);
-                }
-                else
-                {
-                    // waitingJobs.Enqueue(newJob, newJob.Priority);
-                }
-            }
-        }
-        private void ClearJobAndDequeue()
-        {
-            lock (_lock)
-            {
 
-                //currentNumOfRunningJobs--;
-                //if(waitingJobs.TryDequeue(out Job? job, out int priority)) 
-                //{
-                //    if (State.Finished.Equals(job.State) )
-                //    {
-                //        return;
-                //    }
-                //    Schedule(job);
-            }
-        }
 
         private void UpdateNumOfCurrentRunningJobs()
         {
             lock (_lock)
             {
                 currentNumOfRunningJobs--;
-
-                Console.WriteLine("job finished " + currentNumOfRunningJobs);
             }
         }
 
         private void HandleFinishedJob() => UpdateNumOfCurrentRunningJobs();
-        private void HandleStoppedJob() => ClearJobAndDequeue();
-        private void HandlePausedJob() => ClearJobAndDequeue();
         private void HandleResumeRequest(Job job) => Schedule(job);
-
-
-
-
     }
 }

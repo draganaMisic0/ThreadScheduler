@@ -7,17 +7,9 @@ using System.Windows.Media.Imaging;
 
 namespace OPOS_project
 {
-
     public partial class MainWindow : Window
     {
-
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        static extern bool AllocConsole();
-
-
-
+        
         private JobType? selectedJobType = null;
         private DateTime? selectedStartDate = null;
         private DateTime? selectedEndDate = null;
@@ -32,47 +24,40 @@ namespace OPOS_project
             this.ResizeMode = ResizeMode.CanMinimize;
             comboBoxSelectJob.Items.Clear();
             JobType[] elements = (JobType[])Enum.GetValues(typeof(JobType));
-            foreach (JobType element in elements)
+            
+            foreach (JobType element in elements) //filling the combo box with job types
             {
                 comboBoxSelectJob.Items.Add(new ComboBoxItem { Content = element.ToString(), Tag = element });
             }
 
-            AllocConsole();
-            Console.WriteLine("Console window allocated.");
-
         }
+
         private void timeControl_Loaded(object sender, RoutedEventArgs e)
         {
-            // Your event handler logic here
+            
         }
 
         public static List<JobCreationElements> getListOfJobs()
         {
-
             return listOfJobs;
         }
-        private void ComboBox_DropDownOpened(object sender, System.EventArgs e) //vjerovatno ni ne treba
+
+        private void ComboBox_DropDownOpened(object sender, System.EventArgs e) 
         {
-
-
-
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) //choosing option from combo box
         {
             if (comboBoxSelectJob.SelectedItem != null)
                 selectedJobType = (JobType)(((ComboBoxItem)comboBoxSelectJob.SelectedItem).Tag);
-           
         }
 
         private void Title_TextChanged(object sender, TextChangedEventArgs e)
         {
-
         }
 
         private void UploadButton_Click(object sender, RoutedEventArgs e)
         {
-
             Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
 
             openFileDialog.Filter = "Image s (*.jpg;*.jpeg;*.png;*.gif)|*.jpg;*.jpeg;*.png;*.gif|All files (*.*)|*.*";
@@ -83,7 +68,6 @@ namespace OPOS_project
             {
                 try
                 {
-
                     string selectedFileName = openFileDialog.FileName;
                     imagePath.Content = selectedFileName;
                     selectedBitmap = new Bitmap(selectedFileName);
@@ -93,23 +77,13 @@ namespace OPOS_project
                         Source = bitmapImage
                     };
                     testImage.Source = selectedImage.Source;
-
-
-                    // Perform your upload action here, such as saving the file or sending it to a server
-                    // For example:
-                    // MessageBox.Show("Selected file: " + selectedFileName);
-                    // You can also assign the file path to an Image control's source property to display the image:
-                    // imageControl.Source = new BitmapImage(new Uri(selectedFileName));
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error: " + ex.Message);
                 }
             }
-
-
         }
-
 
         private void startJobsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -119,16 +93,15 @@ namespace OPOS_project
 
             newWindow.Show();
         }
+
         private DateTime buildDateAndTime(DateTime selectedDate, DateTime selectedTime)
         {
-
             DateTime newDateAndTime = new DateTime(selectedDate.Year, selectedDate.Month, selectedDate.Day, selectedTime.Hour, selectedTime.Minute, selectedTime.Second);
             return newDateAndTime;
-
         }
+
         private Boolean CheckDateAndTimeInputs()
         {
-
             if (selectedStartDate != null && startTimePicker.DateTimeValue != null)
             {
                 selectedStartDate = buildDateAndTime((DateTime)selectedStartDate, (DateTime)startTimePicker.DateTimeValue);
@@ -137,7 +110,6 @@ namespace OPOS_project
             {
                 printMessageLabel.Content = "Job start date or start time are not selected";
                 return false;
-
             }
             if (selectedEndDate != null && endTimePicker.DateTimeValue != null)
             {
@@ -152,7 +124,6 @@ namespace OPOS_project
             {
                 printMessageLabel.Content = "Job date and time is earlier than current date and time";
                 return false;
-
             }
             if (selectedEndDate < selectedStartDate)
             {
@@ -177,6 +148,7 @@ namespace OPOS_project
             }
             return true;
         }
+
         public void clearEnteredElements()
         {
             comboBoxSelectJob.SelectedIndex = -1;
@@ -187,6 +159,7 @@ namespace OPOS_project
             endTimePicker.ClearValues();
             isTimedJob.IsChecked = false;
         }
+
         private void addJobButton_Click(object sender, RoutedEventArgs e)
         {
             if (isTimedJob.IsChecked == true)
@@ -199,7 +172,6 @@ namespace OPOS_project
                         selectedJobType, selectedBitmap, selectedStartDate, selectedEndDate, selectedTotalExecutionTime));
                     printMessageLabel.Content = "Job sucessfully added";
                     clearEnteredElements();
-
                 }
                 else return;
             }
@@ -220,31 +192,23 @@ namespace OPOS_project
                     printMessageLabel.Content = "Job sucessfully added";
                     comboBoxSelectJob.SelectedIndex = -1;
                     imagePath.Content = "";
-
                 }
-
             }
-
         }
-
-
 
         private void StartDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (startDatePicker != null)
             {
                 selectedStartDate = startDatePicker.SelectedDate;
-               
             }
         }
 
         private void EndDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-
             if (endDatePicker != null)
             {
                 selectedEndDate = endDatePicker.SelectedDate;
-               
             }
         }
 
@@ -257,31 +221,27 @@ namespace OPOS_project
         {
             blurRectangle.Visibility = Visibility.Visible;
         }
+
         private void fillWithTestData()
         {
             string bitmapPath1 = @"../../../Resources/city.png";
             string bitmapPath2 = @"../../../Resources/hamster.png";
             string bitmapPath3 = @"../../../Resources/nature.png";
 
-            listOfJobs.Add(new JobCreationElements(
-                $"Blur_1",
-                (JobType?)JobType.Blur,
-                (Bitmap?)new Bitmap(bitmapPath1),
-                (DateTime.Now).AddSeconds(3),
-                (DateTime.Now).AddMinutes(1),
-                10));
-            listOfJobs.Add(new JobCreationElements($"DetectEdges_2",
-                        JobType.DetectEdges, new Bitmap(bitmapPath2)));
+            listOfJobs.Add(new JobCreationElements($"Blur_1", JobType.Blur, new Bitmap(bitmapPath1),
+                (DateTime.Now).AddSeconds(3),(DateTime.Now).AddMinutes(1),10));
 
-            listOfJobs.Add(new JobCreationElements($"Embossing_3",
-                        JobType.Embossing, new Bitmap(bitmapPath3), (DateTime?)(DateTime.Now).AddSeconds(5), (DateTime?)(DateTime.Now).AddMinutes(1), 10));
+            listOfJobs.Add(new JobCreationElements($"DetectEdges_2",JobType.DetectEdges, new Bitmap(bitmapPath2)));
 
-            listOfJobs.Add(new JobCreationElements($"DetectEdges_4",
-                       JobType.DetectEdges, new Bitmap(bitmapPath1)));
-            listOfJobs.Add(new JobCreationElements($"Embossing_5",
-                        JobType.Embossing, new Bitmap(bitmapPath2), (DateTime?)(DateTime.Now).AddSeconds(7), (DateTime?)(DateTime.Now).AddMinutes(1), 10));
-            listOfJobs.Add(new JobCreationElements($"Sharpen_6",
-                      JobType.Sharpen, new Bitmap(bitmapPath1)));
+            listOfJobs.Add(new JobCreationElements($"Embossing_3", JobType.Embossing, new Bitmap(bitmapPath3),
+                (DateTime.Now).AddSeconds(5), (DateTime.Now).AddMinutes(1), 10));
+
+            listOfJobs.Add(new JobCreationElements($"DetectEdges_4",JobType.DetectEdges, new Bitmap(bitmapPath1)));
+
+            listOfJobs.Add(new JobCreationElements($"Embossing_5", JobType.Embossing, new Bitmap(bitmapPath2),
+                (DateTime.Now).AddSeconds(7), (DateTime.Now).AddMinutes(1), 10));
+
+            listOfJobs.Add(new JobCreationElements($"Sharpen_6",JobType.Sharpen, new Bitmap(bitmapPath1)));
         }
     }
 }

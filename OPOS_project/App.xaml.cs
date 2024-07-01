@@ -8,5 +8,4 @@ namespace OPOS_project
     public partial class App : Application
     {
     }
-
 }

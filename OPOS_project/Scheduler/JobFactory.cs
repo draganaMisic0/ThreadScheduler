@@ -4,10 +4,8 @@ namespace OPOS_project.Scheduler
 {
     internal class JobFactory
     {
-
         public static Job createJob(JobCreationElements jobElements, int priority = 1)
         {
-
             if (jobElements.JobType == JobType.Blur)
                 return new BlurImageJob(jobElements, priority);
             else if (jobElements.JobType == JobType.DetectEdges)
@@ -17,6 +15,5 @@ namespace OPOS_project.Scheduler
             else
                 return new SharpenImageJob(jobElements, priority);
         }
-
     }
 }

@@ -6,7 +6,10 @@ namespace OPOS_project.Specific_jobs
 {
     internal class EmbossingJob : Job
     {
-        public EmbossingJob(JobCreationElements elements, int priority) : base(elements, priority) { }
+        public EmbossingJob(JobCreationElements elements, int priority) : base(elements, priority)
+        {
+        }
+
         /* public override void RunThisJob()
          {
              throw new NotImplementedException();

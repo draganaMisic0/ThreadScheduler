@@ -6,11 +6,15 @@ namespace OPOS_project.Specific_jobs
 {
     internal class DetectEdgesJob : Job
     {
-        public DetectEdgesJob(JobCreationElements myJobElements, int priority) : base(myJobElements, priority) { }
+        public DetectEdgesJob(JobCreationElements myJobElements, int priority) : base(myJobElements, priority)
+        {
+        }
+
         /*  public override void RunThisJob()
           {
               throw new NotImplementedException();
           }*/
+
         public override void RunThisJob()
         {
             // Convert image to grayscale
@@ -37,7 +41,6 @@ namespace OPOS_project.Specific_jobs
 
             // Combine horizontal and vertical edges
             Bitmap combinedEdges = CombineEdgeImages(horizontalEdges, verticalEdges);
-
 
             this.Finish();
 
@@ -69,7 +72,6 @@ namespace OPOS_project.Specific_jobs
 
         public Bitmap ApplyConvolution(Bitmap image, int[,] kernel, ref int processedSteps, int totalSteps)
         {
-
             Bitmap result = new Bitmap(image.Width, image.Height);
 
             int kHeight = kernel.GetLength(0);
@@ -125,7 +127,5 @@ namespace OPOS_project.Specific_jobs
             }
             return combinedEdges;
         }
-
     }
-
 }

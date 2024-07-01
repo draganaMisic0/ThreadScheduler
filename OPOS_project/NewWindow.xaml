@@ -7,6 +7,6 @@
         mc:Ignorable="d"
         Title="NewWindow" Height="450" Width="800">
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-        <StackPanel x:Name="stackPanel" Margin="35,32,42,0"/>
+        <StackPanel x:Name="stackPanel" Margin="35,32,42,0" />
     </ScrollViewer>
 </Window>
