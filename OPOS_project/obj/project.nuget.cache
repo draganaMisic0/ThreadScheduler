@@ -1,11 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "goOEcao01/42kdNjleX0bP9HqYtlgDmTOtyUGlrMDhglR1UBaxYXcC93pBxdRYbDxPX5ujjet9IVfFGFvii70A==",
+  "dgSpecHash": "xw2uwwNjYShMc8Wr48p67BXtUO9izaZ9U4A1aPXTEd8q62G7r5PrPhBsfwmdGyM9l4yx471og2xrrYlHE1kksQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_project\\OPOS_project.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\WIN11\\.nuget\\packages\\microsoft.win32.systemevents\\8.0.0\\microsoft.win32.systemevents.8.0.0.nupkg.sha512",
-    "C:\\Users\\WIN11\\.nuget\\packages\\system.drawing.common\\8.0.6\\system.drawing.common.8.0.6.nupkg.sha512"
+    "C:\\Users\\WIN11\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\WIN11\\.nuget\\packages\\rabbitmq.client\\6.8.1\\rabbitmq.client.6.8.1.nupkg.sha512",
+    "C:\\Users\\WIN11\\.nuget\\packages\\system.drawing.common\\8.0.6\\system.drawing.common.8.0.6.nupkg.sha512",
+    "C:\\Users\\WIN11\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
+    "C:\\Users\\WIN11\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
   ],
   "logs": []
 }

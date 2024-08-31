@@ -61,7 +61,7 @@ namespace OPOS_project
 
         private void playButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && this.Tag is JobCreationElements myJobCreationElements)
+            if (sender is Button button && this.Tag is JobMessage myJobCreationElements)
             {
                 if (myJob != null) //if myJob is already scheduled
                 {
@@ -85,7 +85,7 @@ namespace OPOS_project
 
         private void pauseButtton_Click(object sender, object e)
         {
-            if (sender is Button button && this.Tag is JobCreationElements)
+            if (sender is Button button && this.Tag is JobMessage)
             {
                 scheduler.PauseJob(myJob);
                 if (myJob.IsTimedJob && State.Paused.Equals(myJob.State))
@@ -98,7 +98,7 @@ namespace OPOS_project
 
         private void stopButton_Click(object sender, RoutedEventArgs e)
         {
-            if (sender is Button button && this.Tag is JobCreationElements myJobElements)
+            if (sender is Button button && this.Tag is JobMessage myJobElements)
             {
                 if (myJob.State.Equals(State.Finished))
                 {

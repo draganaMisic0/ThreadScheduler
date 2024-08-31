@@ -24,7 +24,7 @@
             startQueueChecker();
         }
 
-        public Job Schedule(JobCreationElements jobElements)
+        public Job Schedule(JobMessage jobElements)
         {
             Job newJob = JobFactory.createJob(jobElements);
             newJob.OnFinished = HandleFinishedJob;

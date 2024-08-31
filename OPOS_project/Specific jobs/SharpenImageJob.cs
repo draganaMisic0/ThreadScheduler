@@ -6,15 +6,11 @@ namespace OPOS_project.Specific_jobs
 {
     internal class SharpenImageJob : Job
     {
-        public SharpenImageJob(JobCreationElements elements, int priority) : base(elements, priority)
+        public SharpenImageJob(JobMessage elements, int priority) : base(elements, priority)
         {
         }
 
-        /*  public override void RunThisJob()
-          {
-              throw new NotImplementedException();
-          }*/
-
+       
         public override void RunThisJob()
         {
             Bitmap sharpened = new Bitmap(myJobElements.Image.Width, myJobElements.Image.Height);
@@ -30,14 +26,12 @@ namespace OPOS_project.Specific_jobs
             int totalPixels = (myJobElements.Image.Width - 2 * kernelOffset) * (myJobElements.Image.Height - 2 * kernelOffset);
             int processedPixels = 0;
 
-            // Apply convolution
             for (int y = kernelOffset; y < myJobElements.Image.Height - kernelOffset; y++)
             {
                 for (int x = kernelOffset; x < myJobElements.Image.Width - kernelOffset; x++)
                 {
                     int r = 0, g = 0, b = 0;
 
-                    // Apply kernel
                     for (int ky = 0; ky < kernelSize; ky++)
                     {
                         for (int kx = 0; kx < kernelSize; kx++)

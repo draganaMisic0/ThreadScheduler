@@ -17,7 +17,7 @@
         private State state = State.NotStarted;
         public int Progress { get; protected set; } = 0;
         private readonly object stateLock = new();
-        public JobCreationElements myJobElements { get; private set; }
+        public JobMessage myJobElements { get; private set; }
         public int SecondsOfExecution { get;  set; }
         public Timer timer = null;
         public Boolean IsTimedJob
@@ -53,7 +53,7 @@
         internal Action OnFinished { get; set; } = () => { };
         internal Action<Job> OnResumeRequested { get; set; } = (Job job) => { };
 
-        public Job(JobCreationElements myJobElements, int priority)
+        public Job(JobMessage myJobElements, int priority)
         {
             this.myJobElements = myJobElements;
             this.Priority = priority;

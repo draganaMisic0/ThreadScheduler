@@ -8,13 +8,8 @@ namespace OPOS_project.Specific_jobs
     {
         public string Path { get; init; } = "Blur";
 
-        // BitmapImage image=new BitmapImage();
-        /* public override void RunThisJob()
-         {
-             throw new NotImplementedException();
-         }*/
-
-        public BlurImageJob(JobCreationElements elements, int priority) : base(elements, priority)
+       
+        public BlurImageJob(JobMessage elements, int priority) : base(elements, priority)
         {
         }
 
@@ -28,15 +23,13 @@ namespace OPOS_project.Specific_jobs
 
             int processed_pixels = 0;
 
-            // Look at every pixel in the blur rectangle
             for (int xx = 0; xx < original.Width; xx++)
             {
                 for (int yy = 0; yy < original.Height; yy++)
                 {
                     int avgR = 0, avgG = 0, avgB = 0;
-                    int blurPixelCount = 0; // number of pixels used in calculation of current pixel
+                    int blurPixelCount = 0; 
 
-                    // Average the color of the red, green, and blue for each pixel in the blur size
                     for (int x = xx; (x < xx + blurSize && x < original.Width); x++)
                     {
                         for (int y = yy; (y < yy + blurSize && y < original.Height); y++)
@@ -56,7 +49,6 @@ namespace OPOS_project.Specific_jobs
                     avgG = avgG / blurPixelCount;
                     avgB = avgB / blurPixelCount;
 
-                    // Now that we know the average for the pixel, we need to set the pixel to the new color
                     for (int x = xx; (x < xx + blurSize && x < original.Width); x++)
                     {
                         for (int y = yy; (y < yy + blurSize && y < original.Height); y++)

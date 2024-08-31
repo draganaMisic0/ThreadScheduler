@@ -6,30 +6,22 @@ namespace OPOS_project.Specific_jobs
 {
     internal class EmbossingJob : Job
     {
-        public EmbossingJob(JobCreationElements elements, int priority) : base(elements, priority)
+        public EmbossingJob(JobMessage elements, int priority) : base(elements, priority)
         {
         }
-
-        /* public override void RunThisJob()
-         {
-             throw new NotImplementedException();
-         }*/
 
         public override void RunThisJob()
         {
             int totalSteps = myJobElements.Image.Width * myJobElements.Image.Height * 2;
             int processedSteps = 0;
-            // Convert image to grayscale
             Bitmap grayscaleImage = ConvertToGrayscale(myJobElements.Image, ref processedSteps, totalSteps);
 
-            // Define emboss kernel
             int[,] embossKernel = {
             { -2, -1, 0 },
             { -1,  1, 1 },
             {  0,  1, 2 }
         };
 
-            // Apply embossing convolution
             Bitmap embossedImage = ApplyConvolution(grayscaleImage, embossKernel, ref processedSteps, totalSteps);
 
             this.Finish();
@@ -73,7 +65,7 @@ namespace OPOS_project.Specific_jobs
             {
                 for (int x = kCenterX; x < image.Width - kCenterX; x++)
                 {
-                    int newR = 128, newG = 128, newB = 128; // Start with a medium gray background
+                    int newR = 128, newG = 128, newB = 128;
 
                     for (int ky = -kCenterY; ky <= kCenterY; ky++)
                     {

@@ -16,7 +16,7 @@ namespace OPOS_project
         private System.Windows.Controls.Image selectedImage = null;
         private Bitmap? selectedBitmap = null;
         private int? selectedTotalExecutionTime = null;
-        public static List<JobCreationElements> listOfJobs = new List<JobCreationElements>();
+        public static List<JobMessage> listOfJobs = new List<JobMessage>();
 
         public MainWindow()
         {
@@ -38,7 +38,7 @@ namespace OPOS_project
             
         }
 
-        public static List<JobCreationElements> getListOfJobs()
+        public static List<JobMessage> getListOfJobs()
         {
             return listOfJobs;
         }
@@ -169,7 +169,7 @@ namespace OPOS_project
                 {
                     if (selectedJobType != null && selectedImage != null)
 
-                        listOfJobs.Add(new JobCreationElements($"{selectedJobType.ToString()}_{listOfJobs.Count}",
+                        listOfJobs.Add(new JobMessage($"{selectedJobType.ToString()}_{listOfJobs.Count}",
                         selectedJobType, selectedBitmap, selectedStartDate, selectedEndDate, selectedTotalExecutionTime));
                     printMessageLabel.Content = "Job sucessfully added";
                     clearEnteredElements();
@@ -188,7 +188,7 @@ namespace OPOS_project
                 }
                 else
                 {
-                    listOfJobs.Add(new JobCreationElements($"{selectedJobType.ToString()}_{listOfJobs.Count}",
+                    listOfJobs.Add(new JobMessage($"{selectedJobType.ToString()}_{listOfJobs.Count}",
                         selectedJobType, selectedBitmap));
                     printMessageLabel.Content = "Job sucessfully added";
                     comboBoxSelectJob.SelectedIndex = -1;
@@ -229,25 +229,25 @@ namespace OPOS_project
             string bitmapPath2 = @"../../../Resources/hamster.png";
             string bitmapPath3 = @"../../../Resources/nature.png";
 
-            listOfJobs.Add(new JobCreationElements($"Blur_1", JobType.Blur, new Bitmap(bitmapPath1),
+            listOfJobs.Add(new JobMessage($"Blur_1", JobType.Blur, new Bitmap(bitmapPath1),
                 (DateTime.Now).AddSeconds(3),(DateTime.Now).AddMinutes(1),10));
 
-            listOfJobs.Add(new JobCreationElements($"DetectEdges_2",JobType.DetectEdges, new Bitmap(bitmapPath2)));
+            listOfJobs.Add(new JobMessage($"DetectEdges_2",JobType.DetectEdges, new Bitmap(bitmapPath2)));
 
-            listOfJobs.Add(new JobCreationElements($"Embossing_3", JobType.Embossing, new Bitmap(bitmapPath3),
+            listOfJobs.Add(new JobMessage($"Embossing_3", JobType.Embossing, new Bitmap(bitmapPath3),
                 (DateTime.Now).AddSeconds(5), (DateTime.Now).AddMinutes(1), 10));
 
-            listOfJobs.Add(new JobCreationElements($"DetectEdges_4",JobType.DetectEdges, new Bitmap(bitmapPath1)));
+            listOfJobs.Add(new JobMessage($"DetectEdges_4",JobType.DetectEdges, new Bitmap(bitmapPath1)));
 
-            listOfJobs.Add(new JobCreationElements($"Embossing_5", JobType.Embossing, new Bitmap(bitmapPath2),
+            listOfJobs.Add(new JobMessage($"Embossing_5", JobType.Embossing, new Bitmap(bitmapPath2),
                 (DateTime.Now).AddSeconds(7), (DateTime.Now).AddMinutes(1), 10));
 
-            listOfJobs.Add(new JobCreationElements($"Sharpen_6",JobType.Sharpen, new Bitmap(bitmapPath1)));
+            listOfJobs.Add(new JobMessage($"Sharpen_6",JobType.Sharpen, new Bitmap(bitmapPath1)));
 
-            listOfJobs.Add(new JobCreationElements($"Blur_7", JobType.Blur, new Bitmap(bitmapPath2),
+            listOfJobs.Add(new JobMessage($"Blur_7", JobType.Blur, new Bitmap(bitmapPath2),
                 (DateTime.Now).AddSeconds(10), (DateTime.Now).AddSeconds(15), 30));
 
-            listOfJobs.Add(new JobCreationElements($"Blur_8", JobType.Blur, new Bitmap(bitmapPath2),
+            listOfJobs.Add(new JobMessage($"Blur_8", JobType.Blur, new Bitmap(bitmapPath2),
                 (DateTime.Now).AddSeconds(12), (DateTime.Now).AddSeconds(30), 8));
 
 

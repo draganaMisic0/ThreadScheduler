@@ -6,23 +6,16 @@ namespace OPOS_project.Specific_jobs
 {
     internal class DetectEdgesJob : Job
     {
-        public DetectEdgesJob(JobCreationElements myJobElements, int priority) : base(myJobElements, priority)
+        public DetectEdgesJob(JobMessage myJobElements, int priority) : base(myJobElements, priority)
         {
         }
 
-        /*  public override void RunThisJob()
-          {
-              throw new NotImplementedException();
-          }*/
-
         public override void RunThisJob()
         {
-            // Convert image to grayscale
 
             int totalSteps = myJobElements.Image.Height * myJobElements.Image.Width * 3; // Grayscale + Horizontal + Vertical
             int processedSteps = 0;
             Bitmap grayscaleImage = ConvertToGrayscale(myJobElements.Image, ref processedSteps, totalSteps);
-            // Define Sobel kernels
             int[,] horizontalSobel = {
              { -1, 0, 1 },
              { -2, 0, 2 },
@@ -35,11 +28,9 @@ namespace OPOS_project.Specific_jobs
              {  1,  2,  1 }
          };
 
-            // Apply horizontal and vertical Sobel operators
             Bitmap horizontalEdges = ApplyConvolution(grayscaleImage, horizontalSobel, ref processedSteps, totalSteps);
             Bitmap verticalEdges = ApplyConvolution(grayscaleImage, verticalSobel, ref processedSteps, totalSteps);
 
-            // Combine horizontal and vertical edges
             Bitmap combinedEdges = CombineEdgeImages(horizontalEdges, verticalEdges);
 
             this.Finish();
@@ -108,7 +99,6 @@ namespace OPOS_project.Specific_jobs
 
         public Bitmap CombineEdgeImages(Bitmap horizontalEdges, Bitmap verticalEdges)
         {
-            // Combine horizontal and vertical edge images
             int width = horizontalEdges.Width;
             int height = horizontalEdges.Height;
             Bitmap combinedEdges = new Bitmap(width, height);

@@ -11,7 +11,7 @@ namespace OPOS_project
             InitializeComponent();
 
             this.ResizeMode = ResizeMode.CanMinimize;
-            foreach (JobCreationElements currentElement in MainWindow.getListOfJobs())
+            foreach (JobMessage currentElement in MainWindow.getListOfJobs())
             {
                 TaskPlayerControl tpc = new TaskPlayerControl(Scheduler.Scheduler.getInstance().Schedule(currentElement));
                 tpc.Tag = currentElement;
