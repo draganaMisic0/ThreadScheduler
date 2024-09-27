@@ -1,4 +1,6 @@
-﻿using System.Drawing;
+﻿using Newtonsoft.Json;
+using System.Drawing;
+using System.IO;
 
 namespace OPOS_project.Scheduler
 {
@@ -19,16 +21,27 @@ namespace OPOS_project.Scheduler
         public DateTime? Deadline { get; private set; }
         public int? TotalExecutionTime { get; private set; }
         public Bitmap? Image { get; private set; }
-
-        public JobMessage(string Name, JobType? jobType, Bitmap? image,
+        public String BitmapPath { get; private set; }  
+        public String json { get; set; }
+        
+        public JobMessage(string Name, JobType? jobType, String BitmapPath, 
             DateTime? startDateAndTime = null, DateTime? Deadline = null, int? TotalExecutionTime = null)
         {
             this.Name = Name;
             this.JobType = jobType;
-            this.Image = image;
+            this.BitmapPath= BitmapPath;
             this.StartDateAndTime = startDateAndTime;
             this.Deadline = Deadline;
             this.TotalExecutionTime = TotalExecutionTime;
+           
+
         }
+
+        
+
     }
+
+
+
+
 }

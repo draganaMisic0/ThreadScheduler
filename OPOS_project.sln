@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34728.123
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPOS_project", "OPOS_project\OPOS_project.csproj", "{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OPOS_project", "OPOS_project\OPOS_project.csproj", "{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OPOS_JobExecutor", "OPOS_JobExecutor\OPOS_JobExecutor.csproj", "{7B83CEB0-295C-4551-A36A-8C7A2A9BCD20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPOS_Consumer", "OPOS_Consumer\OPOS_Consumer.csproj", "{AE78DF6A-EDE6-4921-ADDF-FD8FBA5A4890}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AB0D4ED-FC26-4F64-BF25-E4846E0157BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B83CEB0-295C-4551-A36A-8C7A2A9BCD20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B83CEB0-295C-4551-A36A-8C7A2A9BCD20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B83CEB0-295C-4551-A36A-8C7A2A9BCD20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B83CEB0-295C-4551-A36A-8C7A2A9BCD20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE78DF6A-EDE6-4921-ADDF-FD8FBA5A4890}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE78DF6A-EDE6-4921-ADDF-FD8FBA5A4890}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE78DF6A-EDE6-4921-ADDF-FD8FBA5A4890}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE78DF6A-EDE6-4921-ADDF-FD8FBA5A4890}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

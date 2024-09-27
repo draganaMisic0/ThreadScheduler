@@ -10,7 +10,7 @@
         "dependencies": {
           "Newtonsoft.Json": "13.0.3",
           "RabbitMQ.Client": "6.8.1",
-          "System.Drawing.Common": "8.0.6"
+          "System.Drawing.Common": "8.0.8"
         },
         "runtime": {
           "OPOS_project.dll": {}
@@ -37,14 +37,14 @@
           }
         }
       },
-      "System.Drawing.Common/8.0.6": {
+      "System.Drawing.Common/8.0.8": {
         "dependencies": {
           "Microsoft.Win32.SystemEvents": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/System.Drawing.Common.dll": {
             "assemblyVersion": "8.0.0.0",
-            "fileVersion": "8.0.624.26909"
+            "fileVersion": "8.0.824.36606"
           }
         }
       },
@@ -79,12 +79,12 @@
       "path": "rabbitmq.client/6.8.1",
       "hashPath": "rabbitmq.client.6.8.1.nupkg.sha512"
     },
-    "System.Drawing.Common/8.0.6": {
+    "System.Drawing.Common/8.0.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-aSwRnJzz6fZ73JvWMMG0KvBwOnXsBTFtfHLriQyAPrDIZ+NrDfl15GWbO/A35k0dtH77D7jfxzEcFF7RONtU/w==",
-      "path": "system.drawing.common/8.0.6",
-      "hashPath": "system.drawing.common.8.0.6.nupkg.sha512"
+      "sha512": "sha512-4ZM1wvLjz9nVVExsfPAaSl/qOvU+QNedJL5rQ+2Wbow+iGeyO0e7XN07707rMBgaffEeeLrCZBwC0oHUuvRdPw==",
+      "path": "system.drawing.common/8.0.8",
+      "hashPath": "system.drawing.common.8.0.8.nupkg.sha512"
     },
     "System.Memory/4.5.5": {
       "type": "package",

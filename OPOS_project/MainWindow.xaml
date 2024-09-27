@@ -19,7 +19,7 @@
             <ColumnDefinition Width="487*" />
             <ColumnDefinition Width="466*" />
         </Grid.ColumnDefinitions>
-        <DatePicker x:Name="startDatePicker" Margin="54,281,0,0" VerticalAlignment="Top" Height="25" Width="242" FirstDayOfWeek="Monday" FontSize="11" HorizontalAlignment="Left" RenderTransformOrigin="0,0.5" SelectedDateChanged="StartDatePicker_SelectedDateChanged" Text="Select a start date">
+        <DatePicker x:Name="startDatePicker" Margin="54,281,0,0" VerticalAlignment="Top" Height="25" Width="242" FirstDayOfWeek="Monday" FontSize="11" HorizontalAlignment="Left" RenderTransformOrigin="0,0.5" Text="Select a start date">
             <DatePicker.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.5" ScaleX="1.5" />
@@ -47,10 +47,9 @@
         <Button x:Name="startJobsButton" Grid.Column="1" Content="Start jobs" HorizontalAlignment="Left" Margin="249,528,0,0" VerticalAlignment="Top" Height="50" Width="128" Click="startJobsButton_Click" FontSize="18" />
         <Label x:Name="imagePath" Content="" HorizontalAlignment="Left" Margin="54,152,0,0" VerticalAlignment="Top" Width="553" Height="36" Grid.ColumnSpan="2" />
         <Image x:Name="testImage" Grid.Column="1" HorizontalAlignment="Left" Height="162" Margin="170,27,0,0" VerticalAlignment="Top" Width="219" RenderTransformOrigin="0.502,0.475" />
-        <CheckBox x:Name="isTimedJob" Content="Schedule time" HorizontalAlignment="Left" Height="36" Margin="52,198,0,0" VerticalAlignment="Top" Width="253" FontSize="18" Checked="checkBoxIsTimedJob_Checked" Unchecked="CheckBoxIsTimedJob_Unchecked" BorderThickness="1,1,1,1" RenderTransformOrigin="0.5,0.5">
-        </CheckBox>
+        <CheckBox x:Name="isTimedJob" Content="Schedule time" HorizontalAlignment="Left" Height="36" Margin="52,198,0,0" VerticalAlignment="Top" Width="253" FontSize="18" BorderThickness="1,1,1,1" RenderTransformOrigin="0.5,0.5" Checked="isTimedJob_Checked" Unchecked="isTimedJob_Unchecked"/>
 
-        <DatePicker x:Name="endDatePicker" Margin="12,281,0,0" VerticalAlignment="Top" Height="25" Width="243" Text="tekst" FirstDayOfWeek="Monday" FontSize="11" HorizontalAlignment="Left" RenderTransformOrigin="0,0.5" SelectedDateChanged="EndDatePicker_SelectedDateChanged" Grid.Column="1">
+        <DatePicker x:Name="endDatePicker" Margin="12,281,0,0" VerticalAlignment="Top" Height="25" Width="243" Text="tekst" FirstDayOfWeek="Monday" FontSize="11" HorizontalAlignment="Left" RenderTransformOrigin="0,0.5" Grid.Column="1">
             <DatePicker.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1.5" ScaleX="1.5" />

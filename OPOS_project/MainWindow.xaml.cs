@@ -1,6 +1,11 @@
-﻿using OPOS_project.Scheduler;
+﻿using Newtonsoft.Json;
+using OPOS_project.Scheduler;
+using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
+using System.IO;
 using System.Runtime.InteropServices;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -9,7 +14,7 @@ namespace OPOS_project
 {
     public partial class MainWindow : Window
     {
-        
+
         private JobType? selectedJobType = null;
         private DateTime? selectedStartDate = null;
         private DateTime? selectedEndDate = null;
@@ -17,16 +22,27 @@ namespace OPOS_project
         private Bitmap? selectedBitmap = null;
         private int? selectedTotalExecutionTime = null;
         public static List<JobMessage> listOfJobs = new List<JobMessage>();
+        public static MessageQueue messageQueue = MessageQueue.getInstance();
+
+        private static int MAX_NUMBER_OF_PROCESSES = 3;
 
         public MainWindow()
         {
-           
+
             InitializeComponent();
+
+
+            string bitmapPath2 = @"../../../Resources/city.png";
+            this.fillWithTestData();
+
+            // messageQueue.PublishMessage(jobMessage2);   
+
+
             this.ResizeMode = ResizeMode.CanMinimize;
             comboBoxSelectJob.Items.Clear();
             JobType[] elements = (JobType[])Enum.GetValues(typeof(JobType));
-            
-            foreach (JobType element in elements) //filling the combo box with job types
+
+            foreach (JobType element in elements) //fing the combo box with job types
             {
                 comboBoxSelectJob.Items.Add(new ComboBoxItem { Content = element.ToString(), Tag = element });
             }
@@ -35,7 +51,7 @@ namespace OPOS_project
 
         private void timeControl_Loaded(object sender, RoutedEventArgs e)
         {
-            
+
         }
 
         public static List<JobMessage> getListOfJobs()
@@ -43,7 +59,7 @@ namespace OPOS_project
             return listOfJobs;
         }
 
-        private void ComboBox_DropDownOpened(object sender, System.EventArgs e) 
+        private void ComboBox_DropDownOpened(object sender, System.EventArgs e)
         {
         }
 
@@ -88,11 +104,20 @@ namespace OPOS_project
 
         private void startJobsButton_Click(object sender, RoutedEventArgs e)
         {
-            fillWithTestData();
+            //illWithTestData();
 
-            NewWindow newWindow = new NewWindow();
+            //NewWindow newWindow = new NewWindow();
 
-            newWindow.Show();
+            //newWindow.Show();
+
+            for(int i = 0; i < MAX_NUMBER_OF_PROCESSES; i++) 
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = "C:\\Users\\WIN11\\Desktop\\OPOS_project\\OPOS_project\\OPOS_Consumer\\bin\\Debug\\net8.0-windows\\OPOS_Consumer.exe",
+                    UseShellExecute = true
+                });
+            }
         }
 
         private DateTime buildDateAndTime(DateTime selectedDate, DateTime selectedTime)
@@ -163,18 +188,28 @@ namespace OPOS_project
 
         private void addJobButton_Click(object sender, RoutedEventArgs e)
         {
+            JobMessage jobMessage = null;
             if (isTimedJob.IsChecked == true)
             {
+
                 if (CheckDateAndTimeInputs())
                 {
                     if (selectedJobType != null && selectedImage != null)
+                    {
 
-                        listOfJobs.Add(new JobMessage($"{selectedJobType.ToString()}_{listOfJobs.Count}",
-                        selectedJobType, selectedBitmap, selectedStartDate, selectedEndDate, selectedTotalExecutionTime));
-                    printMessageLabel.Content = "Job sucessfully added";
-                    clearEnteredElements();
+                        jobMessage = new JobMessage($"Blur_1", JobType.Blur, (String)imagePath.Content,
+                        selectedStartDate, selectedEndDate, selectedTotalExecutionTime);
+                        messageQueue.PublishMessageToScheduled(jobMessage);
+                        printMessageLabel.Content = "Job sucessfully added";
+                        clearEnteredElements();
+
+
+                    }
+                    else return;
                 }
-                else return;
+
+                
+
             }
             else
             {
@@ -188,13 +223,19 @@ namespace OPOS_project
                 }
                 else
                 {
-                    listOfJobs.Add(new JobMessage($"{selectedJobType.ToString()}_{listOfJobs.Count}",
-                        selectedJobType, selectedBitmap));
+                    jobMessage = new JobMessage($"{selectedJobType.ToString()}_{listOfJobs.Count}",
+                          selectedJobType, (String)imagePath.Content);
+
                     printMessageLabel.Content = "Job sucessfully added";
                     comboBoxSelectJob.SelectedIndex = -1;
                     imagePath.Content = "";
+                    messageQueue.PublishMessageToUnscheduled(jobMessage);
+
                 }
             }
+
+
+
         }
 
         private void StartDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -205,52 +246,83 @@ namespace OPOS_project
             }
         }
 
+
+
+
         private void EndDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (endDatePicker != null)
+             {
+                 if (endDatePicker != null)
+                 {
+                     selectedEndDate = endDatePicker.SelectedDate;
+                 }
+             }
+            
+
+            private void fillWithTestData()
             {
-                selectedEndDate = endDatePicker.SelectedDate;
-            }
+                string bitmapPath1 = @"../../../Resources/city.png";
+                string bitmapPath2 = @"../../../Resources/hamster.png";
+                string bitmapPath3 = @"../../../Resources/nature.png";
+
+                string fullPath1 =  Path.GetFullPath(bitmapPath1);
+                string fullPath2 =  Path.GetFullPath(bitmapPath2);
+                string fullPath3 =  Path.GetFullPath(bitmapPath3);
+
+                JobMessage jobMessage4=new JobMessage($"Blur_1", JobType.Blur, Path.GetFullPath(bitmapPath1),
+                 (DateTime.Now).AddSeconds(3), (DateTime.Now).AddMinutes(1), 10);
+           
+            
+            Random random = new Random();
+            JobMessage jobMessage1=new JobMessage($"DetectEdges"+random.NextInt64(3000), JobType.DetectEdges, fullPath2);
+
+               JobMessage jobMessage5=new JobMessage($"Embossing_3", JobType.Embossing, Path.GetFullPath(bitmapPath3),
+                    (DateTime.Now).AddSeconds(5), (DateTime.Now).AddMinutes(1), 10);
+               
+
+                JobMessage jobMessage2=new JobMessage($"Blur_" + random.NextInt64(3000), JobType.Blur, fullPath1);
+
+               /* listOfJobs.Add(new JobMessage($"Embossing_5", JobType.Embossing, bitmapPath2,
+                    (DateTime.Now).AddSeconds(7), (DateTime.Now).AddMinutes(1), 10));
+               */
+
+                JobMessage jobMessage3=new JobMessage($"Sharpen_" + random.NextInt64(3000), JobType.Sharpen, fullPath3);
+
+            /*  listOfJobs.Add(new JobMessage($"Blur_7", JobType.Blur, bitmapPath2,
+                  (DateTime.Now).AddSeconds(10), (DateTime.Now).AddSeconds(15), 30));
+
+              listOfJobs.Add(new JobMessage($"Blur_8", JobType.Blur, bitmapPath2,
+                  (DateTime.Now).AddSeconds(12), (DateTime.Now).AddSeconds(30), 8));
+            */
+            messageQueue.PublishMessageToUnscheduled(jobMessage1);
+            messageQueue.PublishMessageToUnscheduled(jobMessage2);
+            messageQueue.PublishMessageToUnscheduled(jobMessage3);
+            messageQueue.PublishMessageToUnscheduled(jobMessage1);
+            messageQueue.PublishMessageToUnscheduled(jobMessage2);
+            messageQueue.PublishMessageToUnscheduled(jobMessage3);
+            messageQueue.PublishMessageToUnscheduled(jobMessage1);
+            messageQueue.PublishMessageToUnscheduled(jobMessage2);
+            messageQueue.PublishMessageToUnscheduled(jobMessage3);
+            messageQueue.PublishMessageToUnscheduled(jobMessage1);
+            messageQueue.PublishMessageToUnscheduled(jobMessage2);
+            messageQueue.PublishMessageToUnscheduled(jobMessage3);
+
+            messageQueue.PublishMessageToScheduled(jobMessage4);
+            messageQueue.PublishMessageToScheduled(jobMessage5);
+
+
+            //messageQueue.Dispose();
+
+
         }
 
-        private void checkBoxIsTimedJob_Checked(object sender, RoutedEventArgs e)
+        private void isTimedJob_Checked(object sender, RoutedEventArgs e)
         {
             blurRectangle.Visibility = Visibility.Collapsed;
         }
 
-        private void CheckBoxIsTimedJob_Unchecked(object sender, RoutedEventArgs e)
+        private void isTimedJob_Unchecked(object sender, RoutedEventArgs e)
         {
             blurRectangle.Visibility = Visibility.Visible;
         }
-
-        private void fillWithTestData()
-        {
-            string bitmapPath1 = @"../../../Resources/city.png";
-            string bitmapPath2 = @"../../../Resources/hamster.png";
-            string bitmapPath3 = @"../../../Resources/nature.png";
-
-            listOfJobs.Add(new JobMessage($"Blur_1", JobType.Blur, new Bitmap(bitmapPath1),
-                (DateTime.Now).AddSeconds(3),(DateTime.Now).AddMinutes(1),10));
-
-            listOfJobs.Add(new JobMessage($"DetectEdges_2",JobType.DetectEdges, new Bitmap(bitmapPath2)));
-
-            listOfJobs.Add(new JobMessage($"Embossing_3", JobType.Embossing, new Bitmap(bitmapPath3),
-                (DateTime.Now).AddSeconds(5), (DateTime.Now).AddMinutes(1), 10));
-
-            listOfJobs.Add(new JobMessage($"DetectEdges_4",JobType.DetectEdges, new Bitmap(bitmapPath1)));
-
-            listOfJobs.Add(new JobMessage($"Embossing_5", JobType.Embossing, new Bitmap(bitmapPath2),
-                (DateTime.Now).AddSeconds(7), (DateTime.Now).AddMinutes(1), 10));
-
-            listOfJobs.Add(new JobMessage($"Sharpen_6",JobType.Sharpen, new Bitmap(bitmapPath1)));
-
-            listOfJobs.Add(new JobMessage($"Blur_7", JobType.Blur, new Bitmap(bitmapPath2),
-                (DateTime.Now).AddSeconds(10), (DateTime.Now).AddSeconds(15), 30));
-
-            listOfJobs.Add(new JobMessage($"Blur_8", JobType.Blur, new Bitmap(bitmapPath2),
-                (DateTime.Now).AddSeconds(12), (DateTime.Now).AddSeconds(30), 8));
-
-
-        }
     }
-}
+    }
