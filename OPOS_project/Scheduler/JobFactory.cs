@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Media.Imaging;
 namespace OPOS_project.Scheduler
 {
-    internal class JobFactory
+    public class JobFactory
     {
         public static Job createJob(JobMessage jobElements, int priority = 1)
         {

@@ -2,6 +2,8 @@
 
 namespace OPOS_project.Scheduler
 {
+
+   
     public enum State
     {
         NotStarted,
@@ -13,6 +15,9 @@ namespace OPOS_project.Scheduler
 
     public abstract class Job : IStatefulJob, IRunnableJob
     {
+
+        public static readonly int TIME_BETWEEN_NEW_JOB_DELAY = 2000; //u milisekundama
+
         public static readonly String RESULT_FILE_PATH = @"../../../Results";
 
         private ManualResetEventSlim pauseEvent = new ManualResetEventSlim(false);
@@ -51,7 +56,10 @@ namespace OPOS_project.Scheduler
         }
 
         internal Action OnPaused { get; set; } = () => { };
-        internal Action OnStopped { get; set; } = () => { MainWindow.jobCompletedEvent.Set(); };
+        internal Action OnStopped { get; set; } = () => {
+            Task.Delay((int)(TIME_BETWEEN_NEW_JOB_DELAY * 0.7)).Wait();
+            MainWindow.jobCompletedEvent.Set(); 
+        };
         internal Action OnFinished { get; set; } = () => { };
         internal Action<Job> OnResumeRequested { get; set; } = (Job job) => { };
 

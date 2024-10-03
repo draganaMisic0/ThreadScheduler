@@ -1,12 +1,12 @@
 ﻿namespace OPOS_project.Scheduler
 {
-    internal class Scheduler
+    public class Scheduler
     {
         private static int NUMBER_OF_THREADS = 3;
 
         private readonly PriorityQueue<Job, int> waitingJobs = new PriorityQueue<Job, int>();
         private readonly int maxNumOfRunningJobs;
-        private int currentNumOfRunningJobs = 0;
+        public int currentNumOfRunningJobs = 0;
         //private int timedJobCount = 0;
         private readonly object _lock = new();
         private static Scheduler instance = null;

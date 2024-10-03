@@ -11,7 +11,7 @@ namespace OPOS_Consumer
     public partial class MainWindow : Window
     {
 
-        public static ManualResetEvent jobCompletedEvent = new ManualResetEvent(false); // Initially not signaled
+       
         public static ManualResetEvent recievedScheduledJob = new ManualResetEvent(false);
         public static ManualResetEvent recievedUnscheduledJob = new ManualResetEvent(false);
 
@@ -21,7 +21,7 @@ namespace OPOS_Consumer
         public static Job currentJob = null;
 
         public static StackPanel windowStackPanel = null;
-
+        public static ManualResetEvent jobCompletedEvent = new ManualResetEvent(false); // Initially not signaled
         public MainWindow()
         {
             InitializeComponent();
@@ -31,10 +31,7 @@ namespace OPOS_Consumer
 
             Consumer consumer = new Consumer();
 
-
-
-            //jobCompletedEvent.WaitOne();
-            int tries = 100;
+     
             do
             {
                 if(scheduledJob == null)
@@ -52,44 +49,16 @@ namespace OPOS_Consumer
                     TimeSpan difference = (TimeSpan)(currentDateTime - scheduledJob.StartDateAndTime);
                     if (Math.Abs(difference.TotalSeconds) < 3)
                     {
-                        Console.WriteLine("The time difference is less than 3 seconds.");
-                       // consumer.ConsumeMessagesFromScheduled();
+                        
+                      
+                     
                     }
-                    else {  
-                       // consumer.ConsumeMessagesFromUnscheduled();
-                    }
+                   
                 }
-                else if(unscheduledJob != null)
-                {
-                    /*
-                    currentJob = JobFactory.createJob(unscheduledJob);
-                    TaskPlayerControl newTpc = new TaskPlayerControl(currentJob);
-                    newTpc.Tag = currentJob.myJobElements;
-                    myStackPanel.Children.Add(newTpc);
-                    recievedUnscheduledJob.Set(); 
-                    */
-                }
-                else if (scheduledJob != null)
-                {
-                  /*  
-                    currentJob = JobFactory.createJob(scheduledJob);
-                    TaskPlayerControl newTpc = new TaskPlayerControl(currentJob);
-                    newTpc.Tag = currentJob.myJobElements;
-                    myStackPanel.Children.Add(newTpc);
-                    recievedScheduledJob.Set(); 
-                  */
-                }
-                else
-                {
-                    if(tries-- <= 0)
-                    {
-                        break;
-                    }
-                }
-               
+             
 
             } while (scheduledJob != null || unscheduledJob != null);
-
+            
 
             
         }
@@ -98,7 +67,7 @@ namespace OPOS_Consumer
         {
             windowStackPanel.Children.Clear();
 
-            TaskPlayerControl newTpc = new TaskPlayerControl(currentJob);
+            TaskPlayerControl newTpc = new TaskPlayerControl(Scheduler.getInstance().Schedule(currentJob.myJobElements));
             newTpc.Tag = currentJob.myJobElements;
             windowStackPanel.Children.Add(newTpc);
         }
@@ -113,13 +82,18 @@ namespace OPOS_Consumer
                 if(MainWindow.scheduledJob == null)
                 {
                     MainWindow.scheduledJob = message;
+                    if (MainWindow.currentJob != null) {
+
+                        jobCompletedEvent.WaitOne();
+                    }
                     MainWindow.currentJob = JobFactory.createJob(message);
-                    jobCompletedEvent.Reset();
+                    jobCompletedEvent.Reset();   //da se uradi wait 
                 }
                 else //this will trigger if the Job is still executing or not finished
                 {
                     jobCompletedEvent.WaitOne(); //will wait if the job is not yet finished
                     MainWindow.scheduledJob = message;
+                   
                     MainWindow.currentJob = JobFactory.createJob(message);
                     jobCompletedEvent.Reset();
                 }
@@ -129,6 +103,11 @@ namespace OPOS_Consumer
                 if(MainWindow.unscheduledJob == null)
                 {
                     MainWindow.unscheduledJob = message;
+                    if (MainWindow.currentJob != null)
+                    {
+
+                        jobCompletedEvent.WaitOne();
+                    }
                     MainWindow.currentJob = JobFactory.createJob(message);
                     jobCompletedEvent.Reset();  // Reset the event to unsignaled state (for the next wait)
                 }
@@ -136,6 +115,7 @@ namespace OPOS_Consumer
                 {
                     jobCompletedEvent.WaitOne();
                     MainWindow.scheduledJob = message;
+                   
                     MainWindow.currentJob = JobFactory.createJob(message);
                     jobCompletedEvent.Reset();
                 }

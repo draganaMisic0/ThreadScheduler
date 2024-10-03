@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OPOS_JobExecutor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+45b6025d163f6c7858f69d039d77817b482e8aae")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+61d61ab1f60ff977af7c7349081c02852d8200e4")]
 [assembly: System.Reflection.AssemblyProductAttribute("OPOS_JobExecutor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OPOS_JobExecutor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

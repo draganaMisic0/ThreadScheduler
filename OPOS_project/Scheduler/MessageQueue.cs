@@ -3,7 +3,7 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 using Newtonsoft.Json;
-using System.Collections.Immutable; // You'll need to add the Newtonsoft.Json NuGet package for serialization
+using System.Collections.Immutable;
 
 public class MessageQueue : IDisposable
 {

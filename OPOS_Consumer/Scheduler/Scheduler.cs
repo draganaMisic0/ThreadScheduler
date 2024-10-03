@@ -2,16 +2,16 @@
 
 namespace OPOS_project.Scheduler
 {
-    internal class Scheduler
+    public class Scheduler
     {
-        private static int NUMBER_OF_THREADS = 1;
+        private static int NUMBER_OF_THREADS = 100;
 
         private readonly PriorityQueue<Job, int> waitingJobs = new PriorityQueue<Job, int>();
         private readonly int maxNumOfRunningJobs;
-        private int currentNumOfRunningJobs = 0;
+        public  int currentNumOfRunningJobs = 0;
         //private int timedJobCount = 0;
         private readonly object _lock = new();
-        private static Scheduler instance = null;
+        public static Scheduler instance = null;
 
         public static Scheduler getInstance()
         {
@@ -20,7 +20,7 @@ namespace OPOS_project.Scheduler
             return instance;
         }
 
-        private Scheduler(int maxNumRunningJobs = 1)
+        public Scheduler(int maxNumRunningJobs = 1)
         {
             this.maxNumOfRunningJobs = maxNumRunningJobs;
             startQueueChecker();
@@ -29,7 +29,7 @@ namespace OPOS_project.Scheduler
         public Job Schedule(JobMessage jobElements)
         {
             Job newJob = JobFactory.createJob(jobElements);
-            newJob.OnFinished = HandleFinishedJob;
+            newJob.OnFinished = () => HandleFinishedJob(newJob);
           
             if (newJob.IsTimedJob)
             {
@@ -63,6 +63,7 @@ namespace OPOS_project.Scheduler
 
             }
         }
+        private Timer scheduledJobTimer = null;
         private void ScheduleTimedJob(Job newJob)
         {
             DateTime startTime = (DateTime)newJob.myJobElements.StartDateAndTime;
@@ -74,13 +75,21 @@ namespace OPOS_project.Scheduler
             }
             else
             {
-                lock (_lock)
-                {
-                    waitingJobs.Enqueue(newJob, ts.Milliseconds);
-                }
+              
+                scheduledJobTimer= new Timer(CheckBeginingTime, newJob, TimeSpan.Zero, TimeSpan.FromSeconds(1));
             }
         }
+        private void CheckBeginingTime(Object newJob) {
 
+            Job job=(Job)newJob;    
+            DateTime startTime = (DateTime)job.myJobElements.StartDateAndTime;
+            TimeSpan ts = startTime - DateTime.Now;
+            if (ts.TotalMilliseconds < 0 && (currentNumOfRunningJobs < maxNumOfRunningJobs))
+            {
+                StartJob(job);
+            }
+        }
+       
         private Timer timer1 = null;
         
 
@@ -273,23 +282,32 @@ namespace OPOS_project.Scheduler
                     currentNumOfRunningJobs--;
                     if (newJob.IsTimedJob)
                     {
-                        //timedJobCount--;
+                        scheduledJobTimer.Dispose();
                     }
                 }
                 else if (newJob.State == State.NotStarted || newJob.State == State.Paused)
                 {
                     newJob.Stop();
+                    if (newJob.IsTimedJob)
+                    {
+                        scheduledJobTimer.Dispose();
+                    }
                 }
             }
         }
 
 
-        private void signalCompletedJob()
+        private void signalCompletedJob(Job job)
         {
+            if(job.IsTimedJob)
+            {
+                scheduledJobTimer.Dispose();
+            }
+            Task.Delay(Job.TIME_BETWEEN_NEW_JOB_DELAY).Wait();
             MainWindow.jobCompletedEvent.Set();
         }
 
-        private void HandleFinishedJob()=> signalCompletedJob();
+        private void HandleFinishedJob(Job job)=> signalCompletedJob(job);
         private void HandleResumeRequest(Job job) => Schedule(job);
     }
-}
+}   

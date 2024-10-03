@@ -35,8 +35,7 @@ namespace OPOS_project
             string bitmapPath2 = @"../../../Resources/city.png";
             this.fillWithTestData();
 
-            // messageQueue.PublishMessage(jobMessage2);   
-
+           
 
             this.ResizeMode = ResizeMode.CanMinimize;
             comboBoxSelectJob.Items.Clear();
@@ -128,6 +127,7 @@ namespace OPOS_project
 
         private Boolean CheckDateAndTimeInputs()
         {
+            selectedStartDate = startDatePicker.SelectedDate;
             if (selectedStartDate != null && startTimePicker.DateTimeValue != null)
             {
                 selectedStartDate = buildDateAndTime((DateTime)selectedStartDate, (DateTime)startTimePicker.DateTimeValue);
@@ -137,6 +137,7 @@ namespace OPOS_project
                 printMessageLabel.Content = "Job start date or start time are not selected";
                 return false;
             }
+            selectedEndDate = endDatePicker.SelectedDate;
             if (selectedEndDate != null && endTimePicker.DateTimeValue != null)
             {
                 selectedEndDate = buildDateAndTime((DateTime)selectedEndDate, (DateTime)endTimePicker.DateTimeValue);
@@ -166,12 +167,7 @@ namespace OPOS_project
                 printMessageLabel.Content = "Job execution time is not selected";
                 return false;
             }
-            int maxTimeSpan = 0;
-            maxTimeSpan = selectedEndDate.Value.Second - selectedStartDate.Value.Second;
-            if (maxTimeSpan < selectedTotalExecutionTime)
-            {
-                printMessageLabel.Content = "Selected execution time is too long";
-            }
+            
             return true;
         }
 
@@ -191,7 +187,7 @@ namespace OPOS_project
             JobMessage jobMessage = null;
             if (isTimedJob.IsChecked == true)
             {
-
+                
                 if (CheckDateAndTimeInputs())
                 {
                     if (selectedJobType != null && selectedImage != null)
@@ -258,7 +254,7 @@ namespace OPOS_project
              }
             
 
-            private void fillWithTestData()
+            public  void fillWithTestData()
             {
                 string bitmapPath1 = @"../../../Resources/city.png";
                 string bitmapPath2 = @"../../../Resources/hamster.png";
@@ -267,32 +263,34 @@ namespace OPOS_project
                 string fullPath1 =  Path.GetFullPath(bitmapPath1);
                 string fullPath2 =  Path.GetFullPath(bitmapPath2);
                 string fullPath3 =  Path.GetFullPath(bitmapPath3);
+                Random random = new Random();
 
-                JobMessage jobMessage4=new JobMessage($"Blur_1", JobType.Blur, Path.GetFullPath(bitmapPath1),
-                 (DateTime.Now).AddSeconds(3), (DateTime.Now).AddMinutes(1), 10);
+
+                JobMessage jobMessage4=new JobMessage($"Sharpen_1"+ random.NextInt64(3000), JobType.Sharpen, Path.GetFullPath(bitmapPath1),
+                 (DateTime.Now).AddSeconds(5), (DateTime.Now).AddMinutes(1), 10);
            
             
-            Random random = new Random();
-            JobMessage jobMessage1=new JobMessage($"DetectEdges"+random.NextInt64(3000), JobType.DetectEdges, fullPath2);
+              
+               JobMessage jobMessage1=new JobMessage($"DetectEdges_"+random.NextInt64(3000), JobType.DetectEdges, fullPath2);
 
                JobMessage jobMessage5=new JobMessage($"Embossing_3", JobType.Embossing, Path.GetFullPath(bitmapPath3),
-                    (DateTime.Now).AddSeconds(5), (DateTime.Now).AddMinutes(1), 10);
+                    (DateTime.Now).AddMinutes(40), (DateTime.Now).AddMinutes(2), 10);
                
 
-                JobMessage jobMessage2=new JobMessage($"Blur_" + random.NextInt64(3000), JobType.Blur, fullPath1);
+               JobMessage jobMessage2 = new JobMessage($"Blur_" + random.NextInt64(3000), JobType.Blur, fullPath1);
 
-               /* listOfJobs.Add(new JobMessage($"Embossing_5", JobType.Embossing, bitmapPath2,
-                    (DateTime.Now).AddSeconds(7), (DateTime.Now).AddMinutes(1), 10));
-               */
+                JobMessage jobMessage6 = new JobMessage($"Embossing_"+ random.NextInt64(3000), JobType.Embossing, fullPath3,
+                    (DateTime.Now).AddSeconds(25), (DateTime.Now).AddMinutes(2), 10);
+              
 
-                JobMessage jobMessage3=new JobMessage($"Sharpen_" + random.NextInt64(3000), JobType.Sharpen, fullPath3);
+               JobMessage jobMessage3=new JobMessage($"Sharpen_" + random.NextInt64(3000), JobType.Sharpen, fullPath3);
 
-            /*  listOfJobs.Add(new JobMessage($"Blur_7", JobType.Blur, bitmapPath2,
-                  (DateTime.Now).AddSeconds(10), (DateTime.Now).AddSeconds(15), 30));
+                JobMessage jobMessage7= new JobMessage($"Blur_" + random.NextInt64(3000), JobType.Blur, bitmapPath2,
+                  (DateTime.Now).AddSeconds(8), (DateTime.Now).AddSeconds(15), 30);
 
-              listOfJobs.Add(new JobMessage($"Blur_8", JobType.Blur, bitmapPath2,
-                  (DateTime.Now).AddSeconds(12), (DateTime.Now).AddSeconds(30), 8));
-            */
+               JobMessage jobMessage8= new JobMessage($"Blur_"+ random.NextInt64(3000), JobType.Blur, fullPath2,
+                  (DateTime.Now).AddSeconds(20), (DateTime.Now).AddSeconds(55), 8);
+            
             messageQueue.PublishMessageToUnscheduled(jobMessage1);
             messageQueue.PublishMessageToUnscheduled(jobMessage2);
             messageQueue.PublishMessageToUnscheduled(jobMessage3);
@@ -308,9 +306,16 @@ namespace OPOS_project
 
             messageQueue.PublishMessageToScheduled(jobMessage4);
             messageQueue.PublishMessageToScheduled(jobMessage5);
+            messageQueue.PublishMessageToScheduled(jobMessage4);
+            messageQueue.PublishMessageToScheduled(jobMessage5);
+            messageQueue.PublishMessageToScheduled(jobMessage4);
+            messageQueue.PublishMessageToScheduled(jobMessage5);
+            messageQueue.PublishMessageToScheduled(jobMessage6);
+            messageQueue.PublishMessageToScheduled(jobMessage7);
+            messageQueue.PublishMessageToScheduled(jobMessage8);
 
 
-            //messageQueue.Dispose();
+        
 
 
         }
